@@ -35,11 +35,11 @@ import numpy as np
 
 def P(m, n):
 
-    x = np.zeros((n,),)
-    y = np.zeros((m,),)
+    # x = np.ndarray((n,),)
+    # y = np.ndarray((m,),)
 
-    x[:] = [i for i in range(1, n + 1)]
-    y[:] = [i for i in range(1, m + 1)]
+    x = np.array([i for i in range(1, n + 1)])
+    y = np.array([i for i in range(1, m + 1)])
 
     x = x.reshape((-1,1))
     y = y.reshape((-1,1))
