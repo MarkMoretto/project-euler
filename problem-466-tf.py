@@ -33,9 +33,14 @@ Desc:
 
 from __future__ import absolute_import, division, print_function, unicode_literals
 
-import theano
+import tensorflow as tf
 import numpy as np
 
+
+def print_avail_gpus():
+    print('Available GPUs: {}'.format(tf.config.experimental.list_physical_devices('GPU')))
+
+tf.debugging.set_log_device_placement(True)
 
 
 m=3
@@ -50,7 +55,8 @@ def iter_it(n):
 
 x_iter = iter_it(m)
 y_iter = iter_it(n)
-
+x = tf.constant([i for i in x_iter])
+y = tf.constant([i for i in y_iter])
 
 
 def P(m, n):
@@ -58,8 +64,10 @@ def P(m, n):
     x_iter = iter_it(m)
     y_iter = iter_it(n)
 
+    x = tf.constant([i for i in x_iter])
+    y = tf.constant([i for i in y_iter])
 
-
+    return np.count_nonzero(np.unique(arr))
 
 prev = 0
 for i in range(1, 11):
