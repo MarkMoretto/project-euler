@@ -50,21 +50,42 @@ import theano.tensor as tt
 X = tt.zvector('X')
 y = tt.zvector('y')
 
-output, updates = th.scan(fn=lambda i, j: i * j, sequences=[X, y])
+
+
+
+m = tt.dmatrix('m')
+n = tt.dmatrix('n')
+zout = tt.dot(m, n)
+
+P = th.function([m, n], zout)
+
+
+s_outputs, s_updates = th.scan(fn=lambda i, j: tt.dot(i, j))
+P = th.function(inputs=[m, n], outputs=s_outputs, updates=s_updates)
+
+M = np.array(3, dtype=th.config.floatX)
+N = np.array(4, dtype=th.config.floatX)
+
+P(M,N)
+
+
+
+z = tt.zscalar('z')
+
+output, updates = th.scan(fn=lambda i, j: tt.dot(i, j), sequences=[X, y])
 
 multiply_f = th.function(inputs=[X, y], outputs=output, updates=update)
 
+
+P = th.function(inputs=[m, n], z)
 
 def iter_it(n):
     for i in range(1, n + 1):
         yield i
 
 
-def exptest(base, raise_to, start=1):
-    output = start
-    for i in range(raise_to):
-        output = output * base
-        yield output
+def step(m_row, cumulative_sum):
+    return m_row + cumulative_sum
 
 
 
