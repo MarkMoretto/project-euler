@@ -47,7 +47,7 @@ m=3
 n=4
 
 
-
+@tf.function
 def iter_it(n):
     for i in range(1, n + 1):
         yield i
