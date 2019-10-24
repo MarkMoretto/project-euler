@@ -27,21 +27,68 @@ Desc:
 	Find F(10000000). Give your answer modulo 1000000087.
 """
 
-import ctypes as C
+
 import numpy as np
 
-import msvcrt
+import ctypes as C
 
-counter = 0
-while counter < 10:
-    tmplist = list()
-    if msvcrt.kbhit():
-        tmplist.append(msvcrt.getch())
-        counter += 1
+n = C.c_ulonglong
 
-n = C.c_ulonglong(5)
 n_Ptr = C.pointer(n)
 
+powermod = lambda base, exp, mod: (base ** exp) % mod
+
+def primes(n):
+    output = list()
+    if n % 2 == 0:
+        print(f'Step 1, current n: {n}')
+        output.append(2)
+        n = n / 2
+
+    d = 3
+    while d * d <= n:
+        while n % d == 0:
+            print(f'Step 2, current n: {n}')
+            output.append(int(d))
+            n = n / d
+        d += 2
+
+    if n > 1:
+        print(f'Final step, current n: {n}')
+        output.append(int(n))
+    return output
+
+
+primes(15)
+primes(16)
+primes(21)
+
+
+# Function to find the smallest divisor
+def prime_factors(n):
+    if n%2 == 0:
+        print(f'2 is prime.')
+    for i in range(3, n):
+        if n % i == 0:
+            print(f'Current i: {i}')
+            for j in range(2, int(i / 2)):
+                if i % j == 0:
+                    print(f'{i} is prime.')
+                    # yield i
+
+
+
+    # if divisible by 2
+    if (n % 2 == 0): 
+        yield 2
+
+    # iterate from 3 to sqrt(n)
+    i = 3
+    while(i * i <= n):
+        if (n % i == 0): 
+            yield i
+        i += 2
+    yield n
 
 
 def w(n, outlist=None):
@@ -57,6 +104,23 @@ def w(n, outlist=None):
     print(outlist)
 
 
+
+# Function to find the smallest divisor 
+def min_factor(n):
+    # if divisible by 2
+    if (n % 2 == 0): 
+        yield 2
+
+    # iterate from 3 to sqrt(n)
+    i = 3
+    while(i * i <= n):
+        if (n % i == 0): 
+            yield i
+        i += 2
+    yield n
+
+
+primes = lambda num: [min_factor(i) for i in range(2, num + 1)]
 
 
 
