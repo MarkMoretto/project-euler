@@ -1,8 +1,10 @@
 
 #include <stdio.h>
 
-int *EvalPrimes(int i, int j, int n, int is_prime)
+int *EvalPrimes(int n)
 {
+    int i, j, is_prime;
+
     for (i = 2; i <= n; i++)
     {
         if (n % i == 0)
