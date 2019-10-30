@@ -25,12 +25,25 @@ Desc:
 
 import unittest
 
+import ctypes as C
+
+# C.c_longlong
+
 exp_str = lambda x, base=2: '{a}'.format(a = base ** x)
 LEN = lambda val: sum([1 for i in str(val)])
 
+def exp(n, base=2):
+    yield base ** n
+
+
+# [exp(i).__next__() for i in range(1, 10)]
+# [[print(x) for x in exp(i)] for i in range(1, 10)]
+
+
 def p_worker(target, nth_val):
     match_count = 0
-    N = 0
+    if LEN(nth_val)
+    N = 10**LEN(nth_val)
     idx = LEN(target)
     while match_count < nth_val:
         N += 1
@@ -44,6 +57,13 @@ def p(L, n):
     return match_list[-1]
 
 
+
+
+
+
+
+
+p(12, 2)
 
 res = p(123, 678910)
 
