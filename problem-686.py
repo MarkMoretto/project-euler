@@ -25,9 +25,8 @@ Desc:
 
 import unittest
 
-import ctypes as C
+import multiprocessing as mp
 
-# C.c_longlong
 
 exp_str = lambda x, base=2: '{a}'.format(a = base ** x)
 LEN = lambda val: sum([1 for i in str(val)])
@@ -35,6 +34,13 @@ LEN = lambda val: sum([1 for i in str(val)])
 def exp(n, base=2):
     yield base ** n
 
+def log(x, base=2):
+    n=0
+    while True:
+        n += 1
+        if base ** n == x:
+            return n
+            break
 
 # [exp(i).__next__() for i in range(1, 10)]
 # [[print(x) for x in exp(i)] for i in range(1, 10)]
@@ -42,7 +48,6 @@ def exp(n, base=2):
 
 def p_worker(target, nth_val):
     match_count = 0
-    if LEN(nth_val)
     N = 10**LEN(nth_val)
     idx = LEN(target)
     while match_count < nth_val:
@@ -74,7 +79,7 @@ res = p(123, 678910)
 
 
 
-
+import unittest
 class PrelimCase(unittest.TestCase):
     def test_12_1(self):
         L = 12
