@@ -26,9 +26,6 @@ Desc:
 
 
 
-def exp2(n,):
-    yield 2 ** n
-
 def log(x, base=2):
     n=0
     while True:
@@ -37,25 +34,46 @@ def log(x, base=2):
             return n
             break
 
+def log_eval(x):
+    n = 0
+    while EXP2(n) != x:
+        n += 1
+    return n
+
 # [exp2(i).__next__() for i in range(1, 10)]
 # [[print(x) for x in exp(i)] for i in range(1, 10)]
 
+def SUM(obj):
+    tot = 0
+    if obj.__iter__():
+        for i in obj:
+            tot += i
+    return tot
 
+
+
+
+LEN = lambda x: SUM([1 for i in str(x)])
+
+EXP2 = lambda n: 2 ** n
+
+def str_exp(n):
+    return '{}'.format(EXP2(n))
 
 
 def p_worker(target, nth_val):
     match_count = 0
-    N = 10**LEN(nth_val) -1
-    idx = LEN(target)
+    N = 10**(len(str(target)) - 1)
+    idx = len(target)
     while match_count < nth_val:
         N += 1
-        if exp_str(N, 2)[:idx] == str(target):
+        if str_exp(N, 2)[:idx] == str(target):
             match_count += 1
             yield N
 
 
 def p(L, n):
-    match_list = [i for i in p_worker(L, n)]
+    match_list = [i for i in p_worker(L, n)]:
     return match_list[-1]
 
 
