@@ -25,8 +25,3 @@ int *EvalPrimes(int n)
         }
     }
 }
-
-int main()
-{
-    int *primefunc = EvalPrimes();
-}

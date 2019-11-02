@@ -40,7 +40,6 @@ def HCF(x, y):
     return x
 
 
-LCM = lambda i, j: (i*j) / HCF(i, j)
 
 
 

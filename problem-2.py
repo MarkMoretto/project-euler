@@ -6,7 +6,7 @@ Date created: 2019-10-20
 ID: 2
 Title: Even Fibonacci numbers
 URI: https://projecteuler.net/problem=2
-Status: Incomplete
+Status: Complete
 
 Contributor(s): Mark M.
 
@@ -21,87 +21,47 @@ Desc:
 """
 
 
-from os.path import join as osjoin
-# import dis
-import unittest
-import tempfile
-import numpy as np
+# Unnecessary lambd function to produce the sum of two integers
+addtwo = lambda x, y: x + y
+
+
+def run_fib(max_val):
+    # Output variable with default value of zero
+    total_fib = 0
+
+    # Set first two variables (fib_back_2, fib_back_1) to the first two Fibonacci
+    # numbers above zero.
+    # Set current Fibonacci value (fib_current) to zero
+    fib_back_2, fib_back_1, fib_current = 1, 1, 0
+
+    # While the latest Fibonacci number is below our threshold
+    while fib_current < max_val:
+
+        # Set current Fibonacci variable to sum of prior two values
+        fib_current = addtwo(fib_back_2, fib_back_1)
+
+        # Set two-back variable to one-back variable
+        fib_back_2 = fib_back_1
+
+        # Set one-back variable to current variable value
+        fib_back_1 = fib_current
+
+        # If the current number is event
+        if fib_current % 2 == 0:
+
+            # Increment our total value by that amount
+            total_fib += fib_current
+
+    # Return our final value
+    return total_fib
 
 
 
-# __name__ = 'TEST'
+if __name__ == '__main__':
 
+    max_number = 4e6
 
-# def fib(n):
-#     if n == 0:
-#         return 0
-#     elif n == 1:
-#         return 1
-#     else:
-#         return np.sum([fib(n-1), fib(n-2)])
-
-
-
-def fib(n):
-    a, b = 0, 1
-    while b < n:
-        yield b
-        a, b = b, a + b
-
-n = 4e6
-sum_fib = lambda x: np.sum([fib(i) for i in np.arange(x, dtype=np.int64) if fib(i) % 2 == 0 and fib(i) <= x])
-run_fib = lambda x: [fib(i) for i in np.arange(x, dtype=np.int64) if fib(i) % 2 == 0 and fib(i) <= x]
-
-f_name = osjoin(tempfile.mkdtemp(), 'bigfib.dat')
-bigdata_f = np.memmap(f_name, dtype=np.int64, mode='w+', shape=(int(n),))
-bigdata_f[:] = run_fib(int(n))
-
-### Run after processing complete to commit data to disk
-bigdata_f.flush()
-
-### Waiting for processing to complete
-bd_mtrx = np.memmap(f_name, dtype=np.int64, mode='r', shape=(int(n),))
-
-
-
-
-
-
-
-
-
-
-
-
-class SequenceTestCase(unittest.TestCase):
-    def test_first_5(self):
-        n = 5
-        expected = [0, 1, 1, 2, 3]
-        seq_results = [i for i in fib(n)]
-        self.assertEqual(expected, seq_results)
-
-    def test_first_5_w_param(self):
-        n = 5
-        starters=[0, 1]
-        expected = [0, 1, 1, 2, 3]
-        seq_results = [i for i in fib(n, starters)]
-        self.assertEqual(expected, seq_results)
-
-    def test_first_10_w_param(self):
-        n = 10
-        starters=[1, 2]
-        expected = [1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
-        seq_results = [i for i in fib(n, starters)]
-        self.assertEqual(expected, seq_results)
-
-    def test_first_10_w_param_evens_only(self):
-        n = 10
-        starters=[1, 2]
-        expected = [2, 8, 34]
-        seq_results = [i for i in fib(n, starters) if i % 2 == 0]
-        self.assertEqual(expected, seq_results)
-
-
-if __name__ == 'TEST':
-    unittest.main()
+    res = run_fib(max_number)
+    msg = f'The sum of even numbers in the Fibonacci sequence'
+    msg += f'below a maximum sequence value of {int(max_number)} is {res}'
 

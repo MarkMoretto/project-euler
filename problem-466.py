@@ -29,22 +29,18 @@ Desc:
     Find P(64,10**16).
 """
 
+
 ### Note: Will need a bunch of tensorflow and GPU stuff installed to run.
 
 from __future__ import absolute_import, division, print_function, unicode_literals
-
-import theano
+# import theano
+import tensorflow as tf
 import numpy as np
-
-
-
-m=3
-n=4
 
 
 @tf.function
 def iter_it(n):
-    for i in range(1, n + 1):
+    for i in np.arange(1, n + 1):
         yield i
 
 
@@ -62,7 +58,7 @@ def P(m, n):
 
 
 prev = 0
-for i in range(1, 11):
+for i in np.arange(1, 11):
     res = P(i, i)
     growth = res - prev
     print(f'P({i},{i}) # {res}, diff: {growth}')
@@ -123,11 +119,20 @@ P(32,10**5)%32
 P(64, 4**2)
 
 
-### Works
+
+r=3
+c=4
+rows = [i for i in np.arange(1, r + 1)]
+cols = [i for i in np.arange(1, c + 1)]
+
+prod_no_dupes = lambda x, y: [i * j for i in x for j in y if i != j]
+
+list(map(lambda x, y: x*y, rows, cols))
+# ## Works
 # def P(m, n):
 
-#     x = np.ndarray((n,),)
-#     y = np.ndarray((m,),)
+#     # x = np.ndarray((n,),)
+#     # y = np.ndarray((m,),)
 
 #     x_iter = iter_it(m)
 #     y_iter = iter_it(n)
