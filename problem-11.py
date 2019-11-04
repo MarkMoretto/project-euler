@@ -187,7 +187,6 @@ if __name__ == '__main__':
             max_product = max([xproduct(chunk) for c_idx, chunk in enum(xdiag) if not 0 in chunk])
             if max_product > max_value:
                 max_value = max_product
-        break
 
 
         #-- OPTIONAL: Iterate each 2x2 box in the matrix
