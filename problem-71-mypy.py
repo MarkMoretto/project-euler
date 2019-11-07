@@ -31,17 +31,57 @@ Desc:
     the left of 3/7.
 
 """
-
-
-
 # https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html
+# https://docs.python.org/3/library/typing.html
+
+import typing as T
+
+
+f_vector = T.List[float]
+i_vector = T.List[int]
+
+def minmax(x: int, y: int) -> i_vector:
+    return sorted([x, y])
+
+#--
+def vrange(start: int, stop: int = None, increment: int = 1) -> T.Generator[int, None, None]:
+
+    if increment == 0:
+        increment = 1
+
+    if increment > 0:
+        if stop is None:
+            stop = start
+            start = 0
+
+        while start < stop:
+            yield start
+            start += increment
+
+    elif increment < 0:
+        if stop is None:
+            stop = 0
+
+        elif start < stop:
+            stop = start
+            start = stop
+
+        while start > stop:
+            yield start
+            start += increment
+
+
+#-- Generate a list of integers
+def range_gen(start: int, stop: int = None, increment: int = 1) -> f_vector:
+    return [i for i in vrange(start, stop, increment)]
+
 
 #-- Absolute value (mypy)
-def absx(n):
+def xABS(n: int) -> int:
     return n * -1 if ((n ^ 1) < 0) else n
 
-def HCF(x, y):
-    x, y = absx(x), absx(y)
+def HCF(x: int, y: int) -> T.Iterator[int]:
+    x, y = xABS(x), xABS(y)
     if x == 0:
         return y
     while y != 0:
@@ -51,23 +91,24 @@ def HCF(x, y):
             y -= x
     return x
 
-vHCF = np.vectorize(HCF, cache=False)
+# vHCF = np.vectorize(HCF, cache=False)
 
 
-def frac_gen(x, y):
+# def frac_gen(x, y):
 
 
 #-- Set variables
 #-- d = max_value, target = fraction to find, support = minimum fraction
-d = 1e2
-target = 3/7
-support = 2/5
+
+d: int = int(1e2)
+target: float = 3/7
+support: float = 2/5
 
 
 #-- Create two lists for numerators and denominators
-numer = np.arange(1, int(d) + 1)
-denom = np.arange(1, int(d) + 1)
-X = np.arange(1, int(d) + 1)
+numer = range_gen(1, int(d) + 1)
+denom = range_gen(1, int(d) + 1)
+X = range_gen(1, int(d) + 1)
 
 for d in np.array_split(denom, 10):
     for n in np.array_split(numer, 10):
