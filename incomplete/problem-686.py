@@ -10,6 +10,8 @@ ID: 686
 URI: https://projecteuler.net/problem=686
 Title: Powers of Two
 
+Status: Incomplete
+
 Desc:
     2**7 = 128 is the first power of two whose leading digits are "12".
     The next power of two whose leading digits are "12" is 2**80.
@@ -23,57 +25,72 @@ Desc:
     Find p(123, 678910).
 """
 
+import typing as T
+
+Q = T.TypeVar('Q', int, float, str)
+NUM = T.TypeVar('NUM', int, float)
+iscalar = T.List[int]
+fscalar = T.List[float]
+xscalar = T.List[NUM]
+qscalar = T.List[Q]
 
 
 
-def log(x, base=2):
-    n=0
+def xSUM(it: T.Iterable[NUM], tot: NUM = 0) -> NUM:
+    for i in it:
+        tot += i
+    return tot
+
+
+def xLEN(it: T.Iterable[Q]) -> NUM:
+    return xSUM([1 for i in str(it)])
+
+def xEXP(n: NUM) -> NUM:
+    return 2 ** n
+
+
+
+
+
+def log(x: NUM, base: NUM = 2) -> NUM:
+    n: NUM = 0
     while True:
         n += 1
         if base ** n == x:
             return n
             break
 
-def log_eval(x):
-    n = 0
-    while EXP2(n) != x:
+
+def log_eval(x: NUM) -> NUM:
+    n: NUM = 0
+    while xEXP(n) != x:
         n += 1
     return n
 
 # [exp2(i).__next__() for i in range(1, 10)]
 # [[print(x) for x in exp(i)] for i in range(1, 10)]
 
-def SUM(obj):
-    tot = 0
-    if obj.__iter__():
-        for i in obj:
-            tot += i
-    return tot
+
+def str_exp(n: NUM) -> str:
+    return '{}'.format(xEXP(n))
 
 
+def p_worker(target: NUM, nth_val: NUM) -> T.Iterable[int]:
+    match_count: int = 0
 
+    N: int = 10 ** (xLEN(target) - 2)
 
-LEN = lambda x: SUM([1 for i in str(x)])
+    idx: int = xLEN(target)
 
-EXP2 = lambda n: 2 ** n
-
-def str_exp(n):
-    return '{}'.format(EXP2(n))
-
-
-def p_worker(target, nth_val):
-    match_count = 0
-    N = 10**(len(str(target)) - 1)
-    idx = len(target)
     while match_count < nth_val:
         N += 1
-        if str_exp(N, 2)[:idx] == str(target):
+        if str_exp(N)[:idx] == str(target):
             match_count += 1
             yield N
 
 
-def p(L, n):
-    match_list = [i for i in p_worker(L, n)]:
+def p(L: int, n: int) -> NUM:
+    match_list = [i for i in p_worker(L, n)]
     return match_list[-1]
 
 
@@ -83,9 +100,11 @@ def p(L, n):
 
 
 
-p(12, 2)
+# p(12, 2)
 
-res = p(123, 678910)
+# p(123, 45) = 12710
+
+# res = p(123, 678910)
 
 
 
@@ -121,3 +140,13 @@ class PrelimCase(unittest.TestCase):
 
 if __name__ == 'TEST':
     unittest.main()
+
+
+if __name__ == '__main__':
+    print('Calculating  p(123, 678910)...')
+    res = p(123, 678910)
+    try:
+        print('The answer is: {res}', file=open('p-686-ans.txt', 'w'))
+        input('press any key to continue')
+    except KeyboardInterrupt:
+        pass

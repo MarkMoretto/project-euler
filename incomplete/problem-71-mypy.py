@@ -34,17 +34,19 @@ Desc:
 # https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html
 # https://docs.python.org/3/library/typing.html
 
+
 import typing as T
 
+NUM = T.TypeVar('NUM', int, float)
+xvector = T.List[NUM]
+fvector = T.List[float]
+ivector = T.List[int]
+svector = T.List[str]
 
-f_vector = T.List[float]
-i_vector = T.List[int]
 
-def minmax(x: int, y: int) -> i_vector:
-    return sorted([x, y])
 
-#--
-def vrange(start: int, stop: int = None, increment: int = 1) -> T.Generator[int, None, None]:
+
+def vrange(start: int, stop: int = None, increment: int = 1) -> T.Iterable[int]:
 
     if increment == 0:
         increment = 1
@@ -72,15 +74,16 @@ def vrange(start: int, stop: int = None, increment: int = 1) -> T.Generator[int,
 
 
 #-- Generate a list of integers
-def range_gen(start: int, stop: int = None, increment: int = 1) -> f_vector:
+def range_gen(start: int, stop: int = None, increment: int = 1) -> ivector:
     return [i for i in vrange(start, stop, increment)]
 
 
 #-- Absolute value (mypy)
-def xABS(n: int) -> int:
+def xABS(n: NUM) -> NUM:
     return n * -1 if ((n ^ 1) < 0) else n
 
-def HCF(x: int, y: int) -> T.Iterator[int]:
+
+def HCF(x: NUM, y: NUM) -> T.Iterable[int]:
     x, y = xABS(x), xABS(y)
     if x == 0:
         return y
@@ -91,6 +94,10 @@ def HCF(x: int, y: int) -> T.Iterator[int]:
             y -= x
     return x
 
+
+def vDIVIDE(x: NUM, y: NUM) -> float:
+    return x / y
+
 # vHCF = np.vectorize(HCF, cache=False)
 
 
@@ -100,26 +107,30 @@ def HCF(x: int, y: int) -> T.Iterator[int]:
 #-- Set variables
 #-- d = max_value, target = fraction to find, support = minimum fraction
 
-d: int = int(1e2)
+d: int = int(1e3)
 target: float = 3/7
 support: float = 2/5
 
 
 #-- Create two lists for numerators and denominators
-numer = range_gen(1, int(d) + 1)
-denom = range_gen(1, int(d) + 1)
-X = range_gen(1, int(d) + 1)
-
-for d in np.array_split(denom, 10):
-    for n in np.array_split(numer, 10):
+numer = range_gen(1, d + 1)
+denom = range_gen(1, d + 1)
 
 
 #-- Create vector of fraction strings
-frac_str_grid = np.array([f'{n}/{d}' for n in numer for d in denom])
+target_str: str = '3/7'
+support_str: str = '2/5'
+
+def gen_frac_str_matrix(numer: T.Iterable[int], denom: T.Iterable[int]) -> svector:
+    return [f'{n}/{d}' for n in numer for d in denom if n != d and n < d and HCF(n, d) == 1]
+
+# frac_str_grid = [f'{n}/{d}' for n in numer for d in denom if n != d and n < d]
+frac_str_grid = gen_frac_str_matrix(numer, denom)
 
 
 #--Generator
-
+frac_str_grid[frac_str_grid.index(target_str)]
+frac_str_grid[frac_str_grid.index(target_str) - 1]
 
 
 #-- Create fractions vector
@@ -128,16 +139,60 @@ frac_str_grid = np.array([f'{n}/{d}' for n in numer for d in denom])
 #--     2. n / d < target
 #--     3. n / d > support
 
-frac_vec = np.array([np.divide(n, d) for n in numer for d in denom \
-                      if np.divide(n, d) < 1 \
-                      and np.divide(n, d) < target \
-                      and np.divide(n, d) > support])
+# frac_vec = np.array([np.divide(n, d) for n in numer for d in denom \
+#                       if np.divide(n, d) < 1 \
+#                       and np.divide(n, d) < target \
+#                       and np.divide(n, d) > support])
 
 
 
-hcf_vec = np.array([vHCF(n, d) for n in numer for d in denom])
+def gen_frac_grid(numer: T.Iterable[int], denom: T.Iterable[int]) -> fvector:
+    return [vDIVIDE(n, d) for n in numer for d in denom if n != d and n < d and HCF(n, d) == 1]
+
+frac_grid = gen_frac_grid(numer, denom)
+
+
+
+#-- Merge the string and float vectors
+def dictionize(x: T.Iterable[str], y: T.Iterable[float]) -> T.Dict[str, float]:
+    return {k:v for k, v in zip(x, y)}
+
+def enum_num_dict(x: T.Iterable[NUM]) -> T.Dict[int, NUM]:
+    return {k:v for k, v in enumerate(x)}
+
+def enum_str_dict(x: T.Iterable[str]) -> T.Dict[int, str]:
+    return {k:v for k, v in enumerate(x)}
+
+fdict = dictionize(frac_str_grid, frac_grid)
+fdict = dict(sorted(fdict.items(), key = lambda x: x[1]))
+fdict.get(target_str)
+
+enum_frac_grid = enum_num_dict(frac_grid)
+enum_frac_str_grid = enum_str_dict(frac_str_grid)
+
+#--TODO: Use index from composite dictionary to find index in enumerated dictionaries
+#-- and eventually find a solution.
+
+
 
 
 #-- Reduce values to between support and target
 max_val = max(qrs)
 target_rc = frac_str_grid[np.where(qrs == max_val)]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
