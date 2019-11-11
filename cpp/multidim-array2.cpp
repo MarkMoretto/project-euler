@@ -19,7 +19,7 @@ int main(int argc, char ** argv) {
 
     for (int r = 0; r < CITY; ++r) {
         for (int c = 0; c <  BUSWEEK; ++c) {
-            std::cout << "City " << r + 1 << ", Weekday " << c + 1 << " -> ";
+            std::cout << "City " << r + 1 << " and Weekday " << c + 1 << " -> ";
             std::cin >> temp[r][c];
         }
     }
@@ -28,7 +28,7 @@ int main(int argc, char ** argv) {
 
     for (int i = 0; i < CITY; ++i) {
         for (int j = 0; j < BUSWEEK; ++j) {
-            std::cout << "City " << i + 1 << ", Weekday #: " << j + 1 << " = " << temp[i][j] << std::endl;
+            std::cout << "City " << i + 1 << " and Weekday " << j + 1 << " = " << temp[i][j] << std::endl;
 
             // Determine if on city 1 or city 2; Push values to vectors accordingly.
             if (i == 0) {
