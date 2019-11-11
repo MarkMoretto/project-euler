@@ -17,8 +17,18 @@ extern "C"
   #define ADDAPI __declspec(dllimport)
 #endif
 
+// Function declarations
 // Declare Add(a, b) function
 int ADDAPI SumInt(int a, int b);
+
+// Declare absolute value function
+int ADDAPI Abs(int a);
+
+// Declare floating point absolute value function
+float ADDAPI Absf(float a);
+
+
+
 
 
 #ifdef __cplusplus

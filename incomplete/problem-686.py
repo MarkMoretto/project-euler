@@ -26,6 +26,7 @@ Desc:
 """
 
 import typing as T
+from typing_extensions import Protocol
 
 Q = T.TypeVar('Q', int, float, str)
 NUM = T.TypeVar('NUM', int, float)
@@ -33,6 +34,14 @@ iscalar = T.List[int]
 fscalar = T.List[float]
 xscalar = T.List[NUM]
 qscalar = T.List[Q]
+
+
+class SizedIterable(Protocol):
+    def __len__(self):
+        pass
+
+    def __iter__(self):
+        pass
 
 
 
@@ -75,12 +84,12 @@ def str_exp(n: NUM) -> str:
     return '{}'.format(xEXP(n))
 
 
-def p_worker(target: NUM, nth_val: NUM) -> T.Iterable[int]:
+def p_worker(target: int, nth_val: NUM) -> T.Iterable[int]:
     match_count: int = 0
 
-    N: int = 10 ** (xLEN(target) - 2)
+    N: int = 10 ** (len(target) - 2)
 
-    idx: int = xLEN(target)
+    idx: int = len(target)
 
     while match_count < nth_val:
         N += 1
@@ -89,7 +98,7 @@ def p_worker(target: NUM, nth_val: NUM) -> T.Iterable[int]:
             yield N
 
 
-def p(L: int, n: int) -> NUM:
+def p(L: T.Collection[int], n: int) -> NUM:
     match_list = [i for i in p_worker(L, n)]
     return match_list[-1]
 
@@ -144,7 +153,9 @@ if __name__ == 'TEST':
 
 if __name__ == '__main__':
     print('Calculating  p(123, 678910)...')
-    res = p(123, 678910)
+    L: int = 123
+    n: int = 678910
+    res = p(L, n)
     try:
         print('The answer is: {res}', file=open('p-686-ans.txt', 'w'))
         input('press any key to continue')

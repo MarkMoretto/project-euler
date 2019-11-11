@@ -1,0 +1,4 @@
+
+https://courses.cs.washington.edu/courses/cse326/00wi/unix/g++.html
+
+>>g++ -o <executable name> <filename.cpp>

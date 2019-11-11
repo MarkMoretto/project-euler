@@ -1,0 +1,3 @@
+# Ignored python and mypy stuff
+*.pyc
+**/.mypy_cache/*

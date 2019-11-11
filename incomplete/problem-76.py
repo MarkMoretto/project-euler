@@ -27,178 +27,131 @@ Problem:
     least two positive integers?
 """
 
+from helper_modules import *
 
 import typing as T
 
-
-Q = T.TypeVar('Q', int, float, str)
-NUM = T.TypeVar('NUM', int, float)
-xvector = T.List[NUM]
-ivector = T.List[int]
-fvector = T.List[float]
-svector = T.List[str]
-qvector = T.List[Q]
-
-
-
-
-def xSUM(it: T.Iterable[NUM], tot: NUM = 0) -> NUM:
-    for i in it:
-        tot += i
-    return tot
-
-
-def xLEN(it: T.Iterable[Q]) -> NUM:
-    return xSUM([1 for i in str(it)])
-
-def xEXP(n: NUM) -> NUM:
-    return 2 ** n
-
-def xRANGE(start: int, stop: int = None, increment: int = 1) -> T.Iterable[int]:
-
-    if increment == 0:
-        increment = 1
-
-    if increment > 0:
-        if stop is None:
-            stop = start
-            start = 0
-
-        while start < stop:
-            yield start
-            start += increment
-
-    elif increment < 0:
-        if stop is None:
-            stop = 0
-
-        elif start < stop:
-            stop = start
-            start = stop
-
-        while start > stop:
-            yield start
-            start += increment
-
-
-#-- Generate a list of integers
-def range_gen(start: int, stop: int = None, increment: int = 1) -> ivector:
-    return [i for i in vrange(start, stop, increment)]
-
-
-def factorial(n: int):
-    x: int = 1
-    for i in range_gen(1, n + 1):
-        x *= i
-    return x
-
-
-
-#-- Absolute value (mypy)
-def xABS(n: NUM) -> NUM:
-    return n * -1 if ((n ^ 1) < 0) else n
-
-
-def HCF(x: NUM, y: NUM) -> T.Iterable[int]:
-    x, y = xABS(x), xABS(y)
-    if x == 0:
-        return y
-    while y != 0:
-        if x > y:
-            x -= y
-        else:
-            y -= x
-    return x
-
-
-def vDIVIDE(x: NUM, y: NUM) -> float:
-    return x / y
-
-
-def permutation_eq(n: int, r: int) -> int:
-    return int(factorial(n) / factorial(n - r))
-
-def combination_eq(n: int, r: int) -> int:
-    return int(factorial(n) / factorial(n - r) * factorial(r))
 
 
 def lte_target(tot: int, trgt: int) -> bool:
     """ Is the sum less than or equal to the target?"""
     return True if tot <= trgt else False
 
+
 def gen_ones(n: int) -> ivector:
     """Return vector of 1s"""
     return [1] * n
 
 
+def gen_lower_matrix(rows: int, cols: int) -> T.Iterable[int]:
+    return [[1 if c <= r else 0 for c in mRANGE(cols)] for r in mRANGE(rows)]
+
+
+def min_threshold_matrix(it: T.Iterable[N_], threshold: N_ = 1) -> T.Iterable[int]:
+    return [row for row in it if mSUM(row) > 1]
+
+
+def nonzero_len(it: T.Iterable[N_]) -> int:
+    return mSUM([1 for i in it if i != 0])
+
+
+
 #-- Integers must be positive
 #-- Max number of items on a list is the target number (repeating 1s)
 N: int = 5
-index_range = range_gen(0, N)
-incr_range = range_gen(1, N - 1)
-
-count = 0
-while N > 1:
-    #-- Generate vector of length N filled with 1s
-    ones = gen_ones(N)
-
-    #-- If the sum of the largest vector equals the target, increment
-    #-- counter by 1.
-    if xSUM(gen_ones(N)) == N:
-        count += 1
-
-    else:
-        for i in index_range:
-            for j in incr_range:
-                ones[i] += 1
-                print(ones)
-                if lte_target(ones, N):
-                    counter += 1
-                else:
 
 
-        N -= 1
+index_range = mRANGE_GEN(1, N) # Range from 1 to N - 1, since N cannot be in a vector
+vec_size = mRANGE_GEN(2, N + 1) # Size of initial 1s vector
+ii_rng = mRANGE_GEN(N - 1, 0, -1) # Inverse range
+iter_range = mRANGE_GEN(2, N)
+
+# lmatrix = min_threshold_matrix(gen_lower_matrix(N,N))
+
+ for i in vec_size:
+    base = gen_ones(i)
+    for r in index_range: # row
+        for c in mRANGE_GEN(i): # columns
+            for f in index_range: # row
+                base[c] = f
+                if mSUM(base) == N:
+                    print(r, c, f, k, base, mSUM(base))
+
+                for k in mRANGE_GEN(i): # column
+                    base[k] = f
+                    if mSUM(base) == N:
+                        print(r, c, f, k, base, mSUM(base))
 
 
-###-- Matrix action
-# def gen_matrix(rows: int, cols: int) -> T.Iterable[int]:
-#     return [[1 for c in xRANGE(cols)] for r in xRANGE(rows)]
-# matrix = gen_matrix(N, N)
+#- Working, but going to try inverse
+for i in vec_size:
+    base = gen_ones(i)
+    for r in index_range: # row
+        for c, _ in enum(base): # columns
+            base[c] = r
+            print(r, c, base, mSUM(base))
 
 
-def gen_lower_matrix(rows: int, cols: int) -> T.Iterable[int]:
-    return [[1 if c <= r else 0 for c in xRANGE(cols)] for r in xRANGE(rows)]
+            for f in index_range: # row
+                for k, _ in enum(base): # column
+                    if f != k:
+                        base[c] = f
+                        if mSUM(base) == N:
+                            print(r, c, f, k, base, mSUM(base))
 
-def min_threshold_matrix(it: T.Iterable[NUM], threshold: NUM = 1) -> T.Iterable[int]:
-    return [row for row in it if xSUM(row) > 1]
-
-lmatrix = min_threshold_matrix(gen_lower_matrix(N, N), 2)
-
-counter = 0
-for row in lmatrix:
-    if xSUM(row) == N:
-        counter += 1
-    else:
-        base = row
-        for i in xRANGE(xLEN(base)):
-            base[i] += 1
-            if lte_target(xSUM(base), N):
-                counter += 1
-            else:
-                base[i] =- 1
+                    if mSUM(base) == N:
+                        print(r, c, k, base, mSUM(base))
 
 
-        while lte_target(xSUM(row), N):
-            for c in row:
-                lmatrix[row][c] += 1
-
-        tmp = lmatrix[r]
-        for c in xRANGE(xLEN(r) - ):
 
 
-for row in lmatrix:
-    for c in row:
-        print(row, c)
+
+
+
+
+
+# # Testing N = 10
+# output = []
+# for i in vec_size:
+#     base = gen_ones(i)
+#     for n, _ in enum(base):
+#         for j in index_range:
+#             if mSUM(base) < N:
+#                 base[n] = j
+#                 print(f'Base: {base}')
+#             print(f'Outside if: {base}')
+#     print(f'Outside for: {base}')
+
+
+
+
+# # Works for N = 5
+# output = []
+# counter = 0
+# for i in incr_range:
+#     base = gen_ones(i)
+#     for x, v in enum(base):
+#         if mSUM(base) < N:
+#             while mSUM(base) < N:
+#                 base[x] += 1
+#                 print(f'{base}')
+#             print(f'Outside while: {base}')
+#         if x==0 or base[x] <= base[x-1]:
+#             print(f'Outside while (gte): {base}')
+#             if not base in output:
+#                 output.append(list(base))
+#         if base[x] - 1 > 0:
+#             base[x] -= 1
+
+
+
+
+
+
+
+
+
+
 
 
 
