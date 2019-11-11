@@ -1,4 +1,4 @@
-// Header initiall used for multidim-array2.cpp
+//  ..\multidim-array2.cpp header
 
 #ifndef MD_ARRAY_H_
 #define MD_ARRAY_H_
