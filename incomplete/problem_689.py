@@ -72,24 +72,20 @@ def make_hexadecimal_dict() -> T.Dict[str, N]:
 
 hex_dict = make_hexadecimal_dict()
 
+"""
+General pattern for converting from hex string to float/decimal
+May not work for 
+float.hex(3740.0) # '0x1.d380000000000p+11'
 
-tst2 = float.hex(3740.0) # '0x1.d380000000000p+11'
-(1 + 13./16**1 + 3./16**2 + 8/16**3) * (2.0 ** 11)
+-> (1 +
+    (
+     13./16**1 +
+     3./16**2 +
+     8/16**3
+     ) 
+    * (2.0 ** 11)
 
-tst2 = float.hex(0.25) # '0x1.0000000000000p-2'
-
-pat1 = r"""
-    -?\d+               # sign and decimal (nehgative or nothing)
-    x(?P<d>\d+)         # x and subsequent decimal
-    \.(?P<f>\w+?\d+)    # fractional part
-    (?P<e>\+\d+|-\d+)   # exponent
-    """
-
-
-tst2 = float.hex(3740.0) # '0x1.d380000000000p+11' // Original "0x3.a7p10"
-pat1 = r"""(-|\+)?0x(\d+)\.(\w*?\d+)p(.\d+)"""
-p = re.compile(pat1)
-sign, integer, fraction, exponent = p.findall(tst2)[0] # Need to unpack list
+"""
 
 
 
@@ -104,8 +100,19 @@ def tokenizer(it: T.Iterable[str]) -> T.Iterable[str]:
     return [it[i] for i in range(len(it))]
 
 
+def eval_input(x: str) -> str:
+    if isinstance(x, (int, float)):
+        return float.hex(x * 1.0)
+    return x
 
-def hex_to_dec(hex_string: str) -> float:
+#-- Test eval_input function
+assert (eval_input(4)  == '0x1.0000000000000p+2'),'Error: eval_input using integer'
+assert (eval_input('0x1.0000000000000p+2') == '0x1.0000000000000p+2'),'Error: eval_input using string'
+
+
+def hex_to_dec(float_or_hex: str) -> float:
+    if isinstance(float_or_hex, (int, float)):
+        hex_string = float.hex(float_or_hex * 1.0)
     output: str = ''
 
     hex_pat: str = r"""(-|\+)?0x(\d+)\.(\w*?\d+)p(.\d+)"""
