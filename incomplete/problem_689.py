@@ -17,6 +17,21 @@ Ref(s):
 Problem:
 
 
+
+Notes:
+General pattern for converting from hex string to float/decimal - 
+
+    float.hex(3740.0)
+    -> '0x1.d380000000000p+11'
+    
+    ---> (1 +
+              (
+                 13. / 16 ** 1 +
+                 3. / 16 ** 2 +
+                 8 / 16 ** 3
+            ) 
+            * (2.0 ** +11)
+
 """
 
 import re
@@ -28,38 +43,11 @@ n_vec = T.List[N]
 
 
 
-def to_decimal(n: int) -> int:
-    n_str: str = str(n)
-    for i, v in enumerate(n_str[::-1]):
-        print(f'({v}*(2^{i}))')
-
-
-
-tst1 = 0.890625
-
-tmp = [i*2 for i in range(len(str(tst1)))]
-
 def eval_float(float_value: float) -> int:
     if float_value > 1:
         return 1
     return  0
 
-
-def flost_to_bin(float_value: float, lst: list = None) -> int:
-    val = float_value
-    max_bits = len(str(float))
-
-    if lst is None:
-        lst = list()
-
-    while len(str(val)) > 2:
-        tmp = val * 2
-        print(tmp)
-        lst.append(str(eval_float(tmp)))
-        val = tmp % 1
-        print(val)
-
-    return (''.join(lst)[::-1])
 
 
 def make_hexadecimal_dict() -> T.Dict[str, N]:
@@ -72,20 +60,8 @@ def make_hexadecimal_dict() -> T.Dict[str, N]:
 
 hex_dict = make_hexadecimal_dict()
 
-"""
-General pattern for converting from hex string to float/decimal
-May not work for 
-float.hex(3740.0) # '0x1.d380000000000p+11'
 
--> (1 +
-    (
-     13./16**1 +
-     3./16**2 +
-     8/16**3
-     ) 
-    * (2.0 ** 11)
 
-"""
 
 
 
@@ -104,6 +80,7 @@ def eval_input(x: str) -> str:
     if isinstance(x, (int, float)):
         return float.hex(x * 1.0)
     return x
+
 
 #-- Test eval_input function
 assert (eval_input(4)  == '0x1.0000000000000p+2'),'Error: eval_input using integer'
