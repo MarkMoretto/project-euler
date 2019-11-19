@@ -35,16 +35,51 @@ General pattern for converting from hex string to float/decimal -
 """
 
 import re
+from decimal import Decimal, getcontext
 import typing as T
 Q = T.TypeVar('Q', str, float, int,)
 N = T.TypeVar('N', str, float,)
 s_vec = T.List[str]
 n_vec = T.List[N]
+f_vec = T.List[float]
+
+getcontext().prec = 8
+
+def flexRANGE(start: float, stop: float = None, increment: float = 1.0) -> T.Iterable[float]:
+
+    if increment == 0:
+        increment = Decimal('1')
+
+    if increment > 0.0:
+        if stop is None:
+            stop = start
+            start = 0.0
+
+        while start < stop:
+            yield float.fromhex(start.hex())
+            start += increment
+
+    elif increment < 0.0:
+        if stop is None:
+            stop = 0.0
+
+        elif start < stop:
+            stop = start
+            start = stop
+
+        while start > stop:
+            yield float.fromhex(start.hex())
+            start += increment
+
+
+#-- Generate a list of values
+def genRANGE(start: float, stop: float = None, increment: float = 1.0) -> f_vec:
+    return [i for i in flexRANGE(start, stop, increment)]
 
 
 
 def eval_float(float_value: float) -> int:
-    if float_value > 1:
+    if float_value >= 1.0:
         return 1
     return  0
 
@@ -105,6 +140,50 @@ def hex_to_dec(float_or_hex: str) -> float:
     output += ') * ' + str(f'(2**{exponent})')
 
     eval(output)
+
+
+tst1 = 0.890625
+
+
+def float_to_binary(n: float):
+    res = n * 2
+    tmp = res % 1
+    for i in range(23):
+        # print(f'res: {res}, tmp: {tmp}')
+        yield eval_float(res)
+        res = tmp * 2
+        tmp = res % 1
+
+[i for i in float_to_binary(tst1)]
+
+
+def d(x, nth_spot: int = 2):
+    """Return nth value of floating point binary value."""
+    #-- Instantiate generator
+    xyz = float_to_binary(x)
+
+    #-- Run through range, offset by 1
+    for i in range(1, nth_spot + 1):
+        while True:
+            val = xyz.__next__()
+            #-- if nth_spot met, return value
+            if i == nth_spot:
+                return val
+            break
+
+assert (d(0.25, 2) == 1), 'd() return value error!'
+
+
+
+
+def f(x):
+    n
+
+
+
+
+
+
 
 
 
