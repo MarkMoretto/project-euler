@@ -42,5 +42,7 @@
         "random": "cpp",
         "tuple": "cpp",
         "utility": "cpp"
-    }
+    },
+    "python.pythonPath": "C:/Users/Work1/AppData/Local/Programs/Spyder/venv/Scripts/python.exe",
+    "python.venvFolders": ["C:/Users/Work1/AppData/Local/Programs/Spyder"]
 }

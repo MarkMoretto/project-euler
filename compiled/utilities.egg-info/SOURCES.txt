@@ -1,0 +1,11 @@
+MANIFEST.in
+setup.py
+utilities.egg-info/PKG-INFO
+utilities.egg-info/SOURCES.txt
+utilities.egg-info/dependency_links.txt
+utilities.egg-info/not-zip-safe
+utilities.egg-info/requires.txt
+utilities.egg-info/top_level.txt
+utils/__init__.py
+utils/m_funcs.pyx
+utils/m_math.pyx
