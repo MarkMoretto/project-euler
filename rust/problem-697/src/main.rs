@@ -6,47 +6,36 @@ use rand::{thread_rng, Rng};
 
 // https://doc.rust-lang.org/rust-by-example/fn/methods.html
 struct Trials {
-    done: bool,
-    randn: f64,
     c: f64,
-    curr: f64,
-    n_iterations: u64,
 }
 
+// Notes: Not currently working.
 impl Trials {
-    fn n_incr_1(&mut self) {
-        self.n_iterations += 1;
-    }
-
-    fn sim(&mut self) -> u64 {
+    fn sim(self) -> u64 {
         let mut rng = thread_rng();
+        let mut randn: f64;
+        let mut done: bool = true;
+        let mut n: u64 = 0;
+        let mut curr: f64 = self.c;
 
-        let mut done: bool = false;
-
-        // Current value of "c".
-        let mut curr: f64 = init_c;
-
-        let mut n: u64 = 1;
-
-        while !self.done {
+        while !done {
             // Check curr early.  If c = 1.0 to start, then
             // Stop loop if it does.
-            if self.curr < 1.0 {
-                self.done = true;
+            if curr < 1.0 {
+                done = true;
             }
 
             // Skip over the initial n value  of zero
             // set current to the value of c at the start.
-            self.randn = rng.gen();
+            randn = rng.gen();
 
             // Multiply current value by random number between 0 and 1.
-            self.curr *= self.randn;
+            curr *= randn;
 
             // Increment n here; If c * randn < 1.0 to start, then this should
-            // self.n_iterations += 1;
-            self.n_incr_1();
+            n += 1;
         }
-        return self.n_iterations;
+        return n;
     }
 }
 
@@ -60,11 +49,10 @@ fn main() {
     // let mut results = Vec::<f64>::with_capacity(100);
 
     let c: f64 = 1e10;
-    // let mut curr: f64 = c;
-    // let mut done: bool = false;
-    // let mut n = 1;
 
-    let result: u64 = sim(c);
+    let trials = Trials { c: c };
+
+    let result: u64 = trials.sim();
 
     println!("Number of iterations: {}", result);
 }
