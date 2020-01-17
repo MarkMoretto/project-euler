@@ -33,9 +33,8 @@ import numpy as np
 from scipy import stats
 
 # from cvxopt import blas, matrix, mul, div
-target_prob = np.float64(0.25)
 
-c = np.float64(100)
+
 
 
 def n_gen(s):
