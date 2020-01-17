@@ -30,12 +30,8 @@ Find log10(c) and give your answer rounded to two places after the decimal point
 
 
 import numpy as np
-from scipy import stats
 
 # from cvxopt import blas, matrix, mul, div
-
-
-
 
 def n_gen(s):
     n, incr = np.int32(1), np.int32(1)
@@ -48,9 +44,9 @@ def n_gen(s):
     yield n
 
 
-
 def run_trial(start):
     return n_gen(start).__next__()
+
 
 def successful_trial_count(results_list):
     tot = np.sum([1 if i < 100 else 0 for i in results_list])
@@ -62,10 +58,34 @@ c = 1.85e46
 N_TRIALS = 10000.0
 N_RANGE = np.arange(0., N_TRIALS)
 
-# res = [run_trial(c) for i in N_RANGE]
-# n_success = successful_trial_count(res)
+res = [run_trial(c) for i in N_RANGE]
+n_success = successful_trial_count(res)
 
-# n_success/np.log2(N_TRIALS)
+
+
+
+res_arr = np.array(res)
+print(f"Mean: {res_arr.mean()}\nVar: {res_arr.var()}\nSt Dev: {res_arr.std()}")
+
+
+def smallest_deviation(pct = 0.25):
+    # pct = 1 - (1 / k ** 2)
+    return np.sqrt(1 / (1 - pct))
+
+def expected_range(stdev, mean, percentage):
+    sm_std =smallest_deviation(percentage)
+    new_stdev = stdev * sm_std
+    return mean - new_stdev, mean + new_stdev
+
+smallest_stdev = smallest_deviation(0.25)
+exp_lower, exp_upper = expected_range(res_arr.std(), res_arr.mean(), 0.25)
+
+res_arr.var()/(smallest_stdev**2)
+
+
+# min_, max_ = arr_stat.minmax
+# mean_ = arr_stat.mean
+# stdev_ = res.std()
 
 def run_trials():
     res = [run_trial(c) for i in N_RANGE]
@@ -74,17 +94,6 @@ def run_trials():
     return np.divide(n_success, N_TRIALS)
 
 # run_trials()
-
-
-
-res_arr = np.array(res)
-print(f"Mean: {}\nVar: {}\nSt Dev: {}")
-arr_stat = stats.describe(res)
-# min_, max_ = arr_stat.minmax
-# mean_ = arr_stat.mean
-# stdev_ = res.std()
-
-res_arr.var()
 
 
 def eval_trial(value_list, n_threshold = 100):
