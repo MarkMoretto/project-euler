@@ -34,12 +34,11 @@ import numpy as np
 # from cvxopt import blas, matrix, mul, div
 
 def n_gen(s):
-    n, incr = np.int32(1), np.int32(1)
+    n, incr = np.int64(1), np.int64(1)
     current = s
     while current >= 1.0:
         rnd = np.random.random()
-        last = current
-        current = np.multiply(last, rnd)
+        current *= rnd
         n += incr
     yield n
 
@@ -49,17 +48,36 @@ def run_trial(start):
 
 
 def successful_trial_count(results_list):
-    tot = np.sum([1 if i < 100 else 0 for i in results_list])
+    tot = np.sum([1 if i == 100 else 0 for i in results_list])
     return np.float64(tot)
 
-
-c = 1.85e46
-
-N_TRIALS = 10000.0
+N_TRIALS = 100.0
 N_RANGE = np.arange(0., N_TRIALS)
 
-res = [run_trial(c) for i in N_RANGE]
-n_success = successful_trial_count(res)
+
+c = 1.8e40
+incr_c = 1e30
+goal_count = 25.0
+epoch_goals = 0.0
+recent_high = 0.0
+epochs = 0.0
+while epoch_goals < goal_count:
+    res = [run_trial(c) for i in N_RANGE]
+    epoch_goals = successful_trial_count(res)
+    epochs += 1
+    if epoch_goals > recent_high:
+        recent_high = epoch_goals
+        print(f"\nNew recent high: {recent_high}\n\tEpochs: {epochs}")
+        print(f"\n\tCurrent c value: {c:.5E}\n\tCurrent log10 c value: {np.log10(c):.4f}")
+    c += incr_c
+
+print(f"Final c value: {c}\nFinal c log10 value: {np.log10(c):.4f}")
+
+
+
+
+
+
 
 
 

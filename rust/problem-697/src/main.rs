@@ -42,106 +42,72 @@ use rand::Rng;
 
 fn main() {
     let mut rng = rand::thread_rng();
-    let mut randn: f64;
-    let n_trials = 100;
+    
+    let n_trials: i64 = 100; // Number of n trials to run for each test.
 
-    // Could also create a quick range of random numbers to iterate
-    // let rand_vec: Vec<f64> = (0..100).map(|_| { rng.gen_range(0.0_f64, 1.0_f64) }).collect();
-    // println!("{:?}", rand_vec[2]);
+    // Starting c value
+    let mut c: f64 = 1e45;
 
-    let mut c: f64 = 1e40;
-    let mut c_ref: f64;
-    let mut n: i64;
-    let mut current: f64;
-    let mut done: bool = false;
+    // Target ercentage (out of 100) as threshold.
+    let target_pct: i64 = 25;
+
+    // Various counts
     let mut epoch_count: i64 = 0;
-    let mut max_goal = 0_i64;
+    let mut goal: i64 = 0; // Counter of goals reached
+    let mut max_goal: i64 = 0;
 
-    // let mut results = Vec::<f64>::with_capacity(100);
+    // Increment values
+    let incr_int: i64 = 1;
 
+    // Final done indicator
+    let mut all_done: bool = false;
 
-    let mut goal: i64 = 0;
+    while !all_done {
 
-    while !done {
+        // while goal < target_pct {}
 
-        // goal = 0; // Want goal to get to 24 positive results.
-        // println!("Goal reset.");
-        epoch_count += 1;
+        epoch_count += incr_int;
 
         for _ in 0..n_trials {
 
-            n = 0;
-            current = c;
+            let mut n: i64 = 0;
+            let mut current = c;
 
-            while current >= 1.0_f64 {
-                randn = rng.gen();
+            while current >= 1.0 {
+                let randn: f64 = rng.gen();
                 current *= randn;
-                n += 1;
+                n += incr_int;
             }
 
             if n == 100 {
-                goal += 1;
+                goal += incr_int;
             }
         }
 
 
-        if goal < 24 {
+        if goal < target_pct {
             if goal > max_goal {
                 max_goal = goal;
-                println!("New goal count high: {:?}", goal);
-                println!("Curent c value: {:E}", c);
+                println!("\n{0}{1:<2}{x}", "Targets met", ":", x=goal);
+                println!("\t{0}{1:<2}{x}", "Epoch count", ":", x=epoch_count);
+                println!("\t{0}{1:<2}{x:.5E}", "Current C value", ":", x=c);
+                println!("\t{0}{1:<2}{x:.10E}", "Current log10 C value", ":", x=c.log10());
+
             }
             
-            if epoch_count as f64 % 100.0 == 0.0 {
-                println!("Curent c value: {:?}", c);
-            }
-
-            c += 1e7;
+            c += 1e40;
             goal = 0;
 
         } else {
-            done = true;
+            all_done = true;
         }
-
 
     }
 
-    
-    println!("Targets met: {:?}", goal);
-    println!("Epoch count: {:?}", epoch_count);
-    println!("Final c value: {:?}", c);
-    println!("Final c log10 value: {:.5}", c.log10());
-
+    println!("\n\nFinal Results:");
+    println!("\t{0}{1:<2}{2}", "Targets met", ":", goal);
+    println!("\t{0}{1:<2}{2}", "Epoch count", ":", epoch_count);
+    println!("\t{0}{1:<2}{2:.5E}", "C value", ":", c);
+    println!("\t{0}{1:<2}{2:.10E}", "C log10 value", ":", c.log10());
     
 }
-
-// fn sim(init_c: f64) -> u64 {
-//     let mut rng = thread_rng();
-//     let mut randn: f64;
-
-//     let mut done: bool = false;
-
-//     // Current value of "c".
-//     let mut curr: f64 = init_c;
-
-//     let mut n: u64 = 1;
-
-//     while !done {
-//         // Check curr early.  If c = 1.0 to start, then
-//         // Stop loop if it does.
-//         if curr < 1.0 {
-//             done = true;
-//         }
-
-//         // Skip over the initial n value  of zero
-//         // set current to the value of c at the start.
-//         randn = rng.gen();
-
-//         // Multiply current value by random number between 0 and 1.
-//         curr *= randn;
-
-//         // Increment n here; If c * randn < 1.0 to start, then this should
-//         n += 1;
-//     }
-//     return n;
-// }
