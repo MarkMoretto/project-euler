@@ -34,8 +34,8 @@ version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
-name = "problem-697"
-version = "0.1.0"
+name = "project-euler-problem-697"
+version = "0.1.10"
 dependencies = [
  "rand 0.7.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]

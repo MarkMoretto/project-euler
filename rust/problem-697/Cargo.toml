@@ -3,7 +3,8 @@ name = "project-euler-problem-697"
 version = "0.1.10"
 authors = ["Mark Moretto"]
 edition = "2018"
-autobins = false
+# autobins = false
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -80,5 +81,8 @@ incremental = false
 overflow-checks = false
 
 
-[lib]
-crate-type = ["dylib"]
+# # Here's an example of a TOML "array of tables" section, in this case specifying
+# # a binary target name and path.
+# [[bin]]
+# name = "p697"
+# path = "src/main.rs"
