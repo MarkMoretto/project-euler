@@ -43,7 +43,7 @@ Find F(111111111111222333). Give your answer modulo 123123123.
 import os
 import gc
 import numpy as np
-gc.enable()
+
 
 # from threading import Thread
 import threading
@@ -51,6 +51,8 @@ import concurrent.futures
 # from multiprocessing import Queue
 # from queue import Queue
 # from multiprocessing.pool import ThreadPool
+
+gc.enable()
 
 
 TARGET_N = str("123")
@@ -63,9 +65,9 @@ def tight_split(numeric_string):
 TARGET_SET = set(tight_split(TARGET_N))
 
 
-first_19 = np.array([1,2,3,11,12,13,21,22,23,31,32,33,111,112,113,121,122,123,131,])
-first_19s = np.array([str(i) for i in first_19])
-f19_dict = {k:v for k, v in enumerate(first_19s, start=int(1))}
+# first_19 = np.array([1,2,3,11,12,13,21,22,23,31,32,33,111,112,113,121,122,123,131,])
+# first_19s = np.array([str(i) for i in first_19])
+# f19_dict = {k:v for k, v in enumerate(first_19s, start=int(1))}
 
 # output_folder = r'C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\results_output'
 # output_name = str("problem_698.txt")
@@ -80,10 +82,11 @@ f1000 = str("1223321")
 f6000 = str("2333333333323")
 
 
+incr = np.int64(1)
 
 def count_dict(iterable):
     tmp_dict = dict()
-    incr = np.int64(1)
+
     for i in iterable:
         if not i in tmp_dict.keys():
             tmp_dict[i] = incr
@@ -122,14 +125,14 @@ def is_123(number_string):
 
 
 
-def F_worker(target_val, i = np.int64(0), incr = np.int64(1), count=float(0)):
+def F_worker(target_val, i = int(0), count=float(0)):
     while True:
         i += incr
         if is_123(f"{i}"):
             count += incr
         if count == target_val:
-            gc.collect(2)
             yield i
+        gc.collect(2)
 
 # F_runner(1000.).__next__()
 # F_runner(6000.).__next__()
@@ -149,9 +152,10 @@ F(6000)
 
 
 if __name__ == '__main__':
-    f_target = 60000
-    res = F(f_target)
-    print(f"Result for F({f_target}): {res}")
+    sample_cases = [4, 10, 40, 1000, 6000]
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        for f, res in zip(sample_cases, executor.map(F, sample_cases)):
+            print(f"Result for F({f}): {res}")
 
 
 
