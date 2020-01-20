@@ -4,40 +4,6 @@ extern crate rand;
 // use rand::prelude::*;
 use rand::Rng;
 
-// // https://doc.rust-lang.org/rust-by-example/fn/methods.html
-// struct Trials {
-//     c: f64,
-// }
-
-// // Notes: Not currently working.
-// impl Trials {
-//     fn sim(self) -> u64 {
-//         let mut rng = thread_rng();
-//         let mut randn: f64;
-//         let mut done: bool = true;
-//         let mut n: u64 = 0;
-//         let mut curr: f64 = self.c;
-
-//         while !done {
-//             // Check curr early.  If c = 1.0 to start, then
-//             // Stop loop if it does.
-//             if curr < 1.0 {
-//                 done = true;
-//             }
-
-//             // Skip over the initial n value  of zero
-//             // set current to the value of c at the start.
-//             randn = rng.gen();
-
-//             // Multiply current value by random number between 0 and 1.
-//             curr *= randn;
-
-//             // Increment n here; If c * randn < 1.0 to start, then this should
-//             n += 1;
-//         }
-//         return n;
-//     }
-// }
 
 
 fn main() {

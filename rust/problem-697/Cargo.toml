@@ -1,5 +1,5 @@
 [package]
-name = "project-euler-problem-697"
+name = "rust-p697"
 version = "0.1.10"
 authors = ["Mark Moretto"]
 edition = "2018"
@@ -10,6 +10,7 @@ edition = "2018"
 
 [dependencies]
 rand = "0.7.3"
+rayon = "1.3.0"
 
 
 # The development profile, used for `cargo build`.
