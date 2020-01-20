@@ -1,6 +1,6 @@
 
 use std::str;
-
+use std::fs;
 
 use std::collections::{HashSet, HashMap};
 //#[derive(Hash, Eq, PartialEq, Debug)]
@@ -29,7 +29,6 @@ fn split_str_by_len(string_input: &str, char_len: usize) -> Vec<&str> {
 }
 
 
-
 fn main() {
 
     // Closure
@@ -46,32 +45,36 @@ fn main() {
 
     // // Letter frequency
     // // https://www.rosettacode.org/wiki/Letter_frequency#Rust
-    let mut freq_count = HashMap::new();
+    // let mut freq_count = HashMap::new();
     // let mut split_vec = split_str_by_len(f6000.value, split_size);
 
-    for c in f6000.value.chars() {
-        *freq_count.entry(c).or_insert(0) += 1;
+    // for c in f6000.value.chars() {
+    //     *freq_count.entry(c).or_insert(0) += 1;
+    // }
+
+    // println!("Number of occurrences per character:\n");
+    // for (ch, &count) in &freq_count {
+    //     println!("{0:?}: {1}", ch, count);
+    // }
+
+    let _dir = String::from("S:\\OFP\\Hedis\\Population Health File Downloads\\HAP");
+    let _files = fs::read_dir(_dir).unwrap();
+
+    for f in _files {
+        println!("{}", f.unwrap().path().display());
     }
-
-    println!("Number of occurrences per character:\n");
-    for (ch, &count) in &freq_count {
-        println!("{0:?}: {1}", ch, count);
-    }
-
-
-
 }
 
-#[allow(dead_code)]
-fn test1() {
+// #[allow(dead_code)]
+// fn test1() {
 
-    let f4 = Known { value: "11" };
-    let f10 = Known { value: "31" };
-    let f40 = Known { value: "1112" };
-    let f1000 = Known { value: "1223321" };
-    let f6000 = Known { value: "2333333333323" };
+//     let f4 = Known { value: "11" };
+//     let f10 = Known { value: "31" };
+//     let f40 = Known { value: "1112" };
+//     let f1000 = Known { value: "1223321" };
+//     let f6000 = Known { value: "2333333333323" };
 
-    assert_eq!(f4.value, "11");
-    println!("f4 value: {k_value}", k_value = f4.value);
+//     assert_eq!(f4.value, "11");
+//     println!("f4 value: {k_value}", k_value = f4.value);
 
-}
+// }

@@ -5,3 +5,6 @@ __pycache__/
 
 # C/C++ Executables
 cpp/*.exe
+
+#Rust
+rust/*/target/debug/incremental/

@@ -41,7 +41,9 @@ Find F(111111111111222333). Give your answer modulo 123123123.
 
 
 import os
+import gc
 import numpy as np
+gc.enable()
 
 # from threading import Thread
 import threading
@@ -65,10 +67,10 @@ first_19 = np.array([1,2,3,11,12,13,21,22,23,31,32,33,111,112,113,121,122,123,13
 first_19s = np.array([str(i) for i in first_19])
 f19_dict = {k:v for k, v in enumerate(first_19s, start=int(1))}
 
-output_folder = r'C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\results_output'
-output_name = str("problem_698.txt")
-output_path = f"{output_folder}\{output_name}"
-os.chdir(output_folder)
+# output_folder = r'C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\results_output'
+# output_name = str("problem_698.txt")
+# output_path = f"{output_folder}\{output_name}"
+# os.chdir(output_folder)
 
 # Known results
 f4 = str("11")
@@ -126,6 +128,7 @@ def F_worker(target_val, i = np.int64(0), incr = np.int64(1), count=float(0)):
         if is_123(f"{i}"):
             count += incr
         if count == target_val:
+            gc.collect(2)
             yield i
 
 # F_runner(1000.).__next__()
@@ -145,10 +148,10 @@ F(6000)
 """
 
 
-assert (F(4) == f4), "Fail: is_123(f4)"
-assert (F(10) == f10), "Fail: is_123(f10)"
-assert (F(40) == f40), "Fail: is_123(f40)"
-assert (F(1000) == f1000), "Fail: is_123(f1000)"
+if __name__ == '__main__':
+    f_target = 60000
+    res = F(f_target)
+    print(f"Result for F({f_target}): {res}")
 
 
 
@@ -164,32 +167,4 @@ assert (F(1000) == f1000), "Fail: is_123(f1000)"
 
 
 
-### Old 'n func-y
-
-# def values_check(dictionary):
-#     val_list = [f"{i}" for i in dictionary.values()]
-#     target_ct = sum([1 for i in val_list for x in i])
-#     actual_ct = 0
-#     for i in val_list:
-#         i_str = str(i)
-#         for x in i_str:
-#             if x in targets_tuple:
-#                 actual_ct += 1
-#     if target_ct == actual_ct:
-#         return True
-#     return False
-
-
-
-# def F_worker(i = np.int64(0), incr = np.int64(1)):
-#     while True:
-#         i += incr
-#         if is_123(f"{i}"):
-#             yield i
-
-# def F_runner(stop_value):
-#     f_gen = F_worker()
-#     rng = np.arange(1, stop_value + 1)
-#     res = [f_gen.__next__() for i in rng]
-#     return res[-1]
 
