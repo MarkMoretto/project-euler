@@ -53,6 +53,7 @@
         "xtree": "cpp",
         "xutility": "cpp",
         "unordered_set": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "set": "cpp"
     }
 }

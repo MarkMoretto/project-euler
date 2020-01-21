@@ -48,33 +48,68 @@ u_base_map string_frequency (std::string& string_input) {
 //     }
 // }
 
-
+void print_info(std::vector<char>& vec);
 
 int main() {
     // "123" value set.
-    u_base_set ts;
+    
+    std::string target_set = "123";
+    std::vector<char> ts_vec(target_set.begin(), target_set.end());
+    u_base_set ts(target_set.begin(), target_set.end());
+
     u_base_map freq;
 
-    ts = {"1","2","3"};
+    std::string test1 = "1112213334";
 
-    std::string test1 = "111221333";
-
-    std::vector<char> v_key;
-    std::vector<char> v_val;
-    // std::vector<char>::iterator v_diff;
+    std::vector<char> key_vec;
+    std::vector<char> val_vec;
+    std::vector<char> k_diff;
+    std::vector<char> v_diff;
 
     freq = string_frequency(test1);
 
     for (auto &e : freq) {
-        v_key.push_back(e.first);
-        std::sort(v_key.begin(), v_key.end());
-
+        key_vec.push_back(e.first);
         char tmp = e.second;
-        v_val.push_back(tmp);
-        std::sort(v_val.begin(), v_val.end());
+        val_vec.push_back(tmp);
+
     }
 
+    // print_info(key_vec);
 
+    std::sort(ts_vec.begin(), ts_vec.end());
+    std::sort(key_vec.begin(), key_vec.end());
+    std::sort(val_vec.begin(), val_vec.end());
+
+    // Test data with 4 still validates, so check that
+    bool vec_chk = false;
+    vec_chk = std::includes(key_vec.begin(), key_vec.end(), ts_vec.begin(), ts_vec.end());
+
+    if (vec_chk == 1) {
+        std::cout << "All key chars in 123!" << std::endl;
+        std::string val_str;
+        for (auto &e : val_vec) {
+            val_str += e;
+        }
+        vec_chk = std::includes(val_str.begin(), val_str.end(), target_set.begin(), target_set.end());
+        if (vec_chk == 1) {
+            std::cout << "All value chars in 123!" << std::endl;
+        }
+
+    }
+    
+    // // Set difference of key values and target values.
+    // // If none, evaluate values.
+    // std::set_difference(std::begin(key_vec), std::end(key_vec), std::begin(ts), std::end(ts), std::inserter(k_diff, std::begin(k_diff)));
+
+    // if (k_diff.size() == 0) {
+    //     std::set_difference(std::begin(val_vec), std::end(val_vec), std::begin(ts), std::end(ts), std::inserter(v_diff, std::begin(v_diff)));
+    //     if (v_diff.size() == 0) {
+    //         std::cout << "Test value " << &test1 << " is valid." << std::endl;
+    //     }
+    // }
+        
+    
 
     return 0;
 }
