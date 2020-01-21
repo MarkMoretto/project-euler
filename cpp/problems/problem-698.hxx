@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <unordered_map>
+#include <unordered_set>
 
 
 #ifndef PROB_698_H_
@@ -13,6 +14,9 @@ typedef std::map<char, int> base_map;
 // (Unordered) Character:integer map for counting chracters.
 typedef std::unordered_map<char, int> u_base_map;
 
+
+// Unordered set for target values.
+typedef std::unordered_set<std::string> u_base_set;
 
 
 #endif
