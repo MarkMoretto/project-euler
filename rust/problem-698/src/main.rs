@@ -1,6 +1,6 @@
 
 use std::str;
-use std::fs;
+// use std::fs;
 
 use std::collections::{HashSet, HashMap};
 //#[derive(Hash, Eq, PartialEq, Debug)]
@@ -35,9 +35,10 @@ fn main() {
     // Like a lambda. The curly brackets and types are optional
     let incr = | i : u64 | -> u64 { i + 1_u64 };
 
-    let trgt_set: HashSet<&str> = vec!["1", "2", "3"].into_iter().collect();
+    let trgt_values = "123";
+    let trgt_set: HashSet<char> = trgt_values.chars().collect();
 
-    let f6000 = Known { value: "2333333333323" };
+    // let f6000 = Known { value: "2333333333323" };
 
     // // Split a string by each character
     // let split_size: usize = 1;
@@ -45,24 +46,64 @@ fn main() {
 
     // // Letter frequency
     // // https://www.rosettacode.org/wiki/Letter_frequency#Rust
-    // let mut freq_count = HashMap::new();
+    let mut freq_count: HashMap<char, u64> = HashMap::new();
+
     // let mut split_vec = split_str_by_len(f6000.value, split_size);
 
     // for c in f6000.value.chars() {
     //     *freq_count.entry(c).or_insert(0) += 1;
     // }
 
+    let mut done: bool = false;
+    let incr = 1_u64;
+
+    let max_ct: u64 = 4;
+    let mut res_bool: bool;
+
+    
+    while !done {
+
+        let mut n = 0_u64;
+        let count: u64 = 0;
+
+        while count < max_ct {
+
+            n += incr;
+            let s = n.to_string();
+
+            // Check to see if all of hte current chracters are in the target set
+            
+            res_bool = s.chars().all(|c| trgt_set.contains(&c));
+            if (res_bool == true) {
+                for ch in s.chars() {
+                    *freq_count.entry(ch).or_insert(0) += 1;
+                }      
+            }
+
+
+
+
+
+            
+        }
+    
+        
+    }
+
+    // let count = map.entry(key).get().unwrap_or_else(|v| v.insert(0));
+    // *count += 1;
+
     // println!("Number of occurrences per character:\n");
     // for (ch, &count) in &freq_count {
     //     println!("{0:?}: {1}", ch, count);
     // }
 
-    let _dir = String::from("S:\\OFP\\Hedis\\Population Health File Downloads\\HAP");
-    let _files = fs::read_dir(_dir).unwrap();
+    // let _dir = String::from("S:\\OFP\\Hedis\\Population Health File Downloads\\HAP");
+    // let _files = fs::read_dir(_dir).unwrap();
 
-    for f in _files {
-        println!("{}", f.unwrap().path().display());
-    }
+    // for f in _files {
+    //     println!("{}", f.unwrap().path().display());
+    // }
 }
 
 // #[allow(dead_code)]
