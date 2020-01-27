@@ -2,6 +2,8 @@
 
 SET PROMPT=
 
+CD problems
+
 SETLOCAL
 SET MINGW64_HOME=
 
