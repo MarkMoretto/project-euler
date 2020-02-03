@@ -27,40 +27,40 @@ Problem:
     Find T(10**14)
 """
 
-import math
-import numpy as np
 
 from fractions import Fraction
 
+import numpy as np
+from numpy import log as np_log
 
 
 def divisor_gen(x):
-    start = np.int32(1)
-    incr = np.int32(1)
+    start = 1
+    incr = 1
     for i in range(start, x + incr):
         if x % i == 0:
             yield i
 
 def sum_divisors(n):
-    yield np.sum([i for i in divisor_gen(n)])
+    yield sum([i for i in divisor_gen(n)])
 
-def np_log(n, base=3):
-    return np.log(n) / np.log(base)
+def log_(n, base=3):
+    return np_log(n) / np_log(base)
 
 
-incr = np.int64(1)
+incr = 1
 
 def T(N):
-    n_limit = np.int64(N)
+    n_limit = N
     n_list = list()
-    n = np.int64(0)
+    n = 0
     while n <= n_limit:
         n += incr
         numer = sum_divisors(n).__next__()
         frac = Fraction(numer, n)
-        res = np_log(frac.denominator)
+        res = log_(frac.denominator)
         if res != 0.:
-            if np_log(frac.denominator) % 1. == 0.:
+            if log_(frac.denominator) % 1. == 0.:
                 n_list.append(n)
     return sum(n_list)
 
@@ -69,7 +69,7 @@ def T(N):
 assert (T(100) == 270), "Fail: T(100) test"
 
 
-T(int(1e6))
+T(1000000)
 
 
 
