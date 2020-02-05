@@ -1,9 +1,9 @@
 {
     "files.associations": {
-        "*.html": "html",
-        "*.pyx": "python",
         ".pyx": "python",
+        "*.pyx": "python",
         "*.jl": "julia",
+        "*.html": "html",
         "random": "cpp",
         "algorithm": "cpp",
         "cctype": "cpp",
@@ -54,6 +54,11 @@
         "xhash": "cpp",
         "ctime": "cpp",
         "chrono": "cpp",
-        "ratio": "cpp"
+        "ratio": "cpp",
+        "iterator": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "xtree": "cpp"
     }
 }
