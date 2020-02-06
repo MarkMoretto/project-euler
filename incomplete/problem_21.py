@@ -1,7 +1,10 @@
 
 """
-Purpose: 
+Purpose: Project Euler problems
 Date created: 2020-02-05
+
+Problem #: 21
+URI: https://projecteuler.net/problem=21
 
 Contributor(s):
     Mark M.
@@ -41,8 +44,11 @@ for k1, v1 in ddict.items():
             if k1 == v2:
                 amics.append(k1)
                 amicss.add(k1)
+
 # len(amics)
 # len(amicss)
+amics = sorted(amics)
+amicss = sorted(amicss)
 res1 = sum([i for i in amics])
 res2 = sum([i for i in amicss])
 print(f"\nResult all: {res1}\nResult set: {res2}")
