@@ -158,8 +158,9 @@ main_grid = bg.grid # Static grid variable
 ### For 4, 4 grid
 tst = bg.grid[0] # zero 1
 tst = bg.grid[1] # single 1
-
 tst = bg.grid[1000] # [0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0]
+
+tst = bg.grid[-3] # [1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
 chunks = [ch for ch in chunker(tst, n_dims)]
 t_chunks = transpose(chunks)
