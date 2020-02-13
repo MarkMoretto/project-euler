@@ -8,30 +8,65 @@ Contributor(s):
 ID: 31
 URI: https://projecteuler.net/problem=31
 """
-
+import gc
 import itertools
-import functools
+import numpy as np
+# import functools
 
-coins = [1, 2, 5, 10, 20, 50, 100, 200]
-coins = coins[:-1] # We can add on the single 200 at the start
-coindict = {k:v for k, v in enumerate(coins)}
-target = 200
+coins = np.array([1, 2, 5, 10, 20, 50, 100, 200], dtype=np.float64)
 
-max_iters_dict = {c:int(target / c) for c in coins}
+if __name__ == "__main__":
 
-counter = 0
-resulta = list
+    # Drop 200; Add initial value to count
+    coins = coins[:-1][::-1]
+    coindict = {k:v for k, v in enumerate(coins)}
+    target = np.float64(200)
+    
+    max_iters_dict = {c:int(target / c) for c in coins}
+    
+    ranges = [eval(f"range(0, {i+1}, 1)") for i in max_iters_dict.values()]
+    # output_list = list(itertools.product(*ranges))
+    
+    
+    # base = [0] * len(coins)
+    # weights = base.copy()
 
 
 
-int_list = [i for i in range(max_iters + 1)][::-1]
-tmp = [i for i in itertools.product(int_list, coins)]
 
 
-# Create matrix
-matrix = []
-for i in range(5):
-    tmp = list()
-    for j in range(5):
-        tmp.extend([i * j])
-    matrix.append(tmp)
+    counter = 1
+    gc.collect()
+
+    rngs = itertools.product(*ranges)
+
+    for wts in rngs:
+        res = np.dot(coins, np.array(wts))
+        # res = sum([coindict[i] * wt for i, wt in enumerate(wts)])
+        if res == target:
+            counter += 1
+
+
+    print(f"The total count is: {counter}")
+
+
+    # res = 0
+    # for i, wt in enumerate(weights):
+    #     res += (coindict[i] * wt)
+    #     if res == 200:
+    #         counter += 1
+
+    # # Increment weights
+    # while True:
+    #     for i, w in enumerate(weights, 1):
+    #         c = coindict[i-1] # Get first coin
+    #         if w < max_iters_dict[c]: # If wt less than max
+    #             weights[i-1] += 1
+    #             break
+    #         else:
+    #             weights[i] += 1
+
+
+
+
+
