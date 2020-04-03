@@ -1,0 +1,11 @@
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\bin\Debug\netcoreapp2.2\pe-708.deps.json
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\bin\Debug\netcoreapp2.2\pe-708.runtimeconfig.json
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\bin\Debug\netcoreapp2.2\pe-708.runtimeconfig.dev.json
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\bin\Debug\netcoreapp2.2\pe-708.dll
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\bin\Debug\netcoreapp2.2\pe-708.pdb
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.csprojAssemblyReference.cache
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.csproj.CoreCompileInputs.cache
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.AssemblyInfoInputs.cache
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.AssemblyInfo.cs
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.dll
+C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\c_sharp\pe-708\obj\Debug\netcoreapp2.2\pe-708.pdb

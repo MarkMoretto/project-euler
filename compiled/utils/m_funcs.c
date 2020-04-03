@@ -846,8 +846,8 @@ struct __pyx_obj_5utils_7m_funcs___pyx_scope_struct_1_enum {
  * 
  * 
  * def gen_cube_full(n_max: int, prime_numbers: list):             # <<<<<<<<<<<<<<
- *     ppp: int
- *     n_list: list
+ *     """
+ *     Generate list of valid cube-full integers.
  */
 struct __pyx_obj_5utils_7m_funcs___pyx_scope_struct_2_gen_cube_full {
   PyObject_HEAD
@@ -4476,13 +4476,14 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
  * 
  * 
  * def gen_cube_full(n_max: int, prime_numbers: list):             # <<<<<<<<<<<<<<
- *     ppp: int
- *     n_list: list
+ *     """
+ *     Generate list of valid cube-full integers.
  */
 
 /* Python wrapper */
 static PyObject *__pyx_pw_5utils_7m_funcs_37gen_cube_full(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5utils_7m_funcs_37gen_cube_full = {"gen_cube_full", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_7m_funcs_37gen_cube_full, METH_VARARGS|METH_KEYWORDS, 0};
+static char __pyx_doc_5utils_7m_funcs_36gen_cube_full[] = "\n    Generate list of valid cube-full integers.\n    Params:\n        n_max - maximum integer value to evaluate\n        prime_numbers - a list of prime numbers\n    ";
+static PyMethodDef __pyx_mdef_5utils_7m_funcs_37gen_cube_full = {"gen_cube_full", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_5utils_7m_funcs_37gen_cube_full, METH_VARARGS|METH_KEYWORDS, __pyx_doc_5utils_7m_funcs_36gen_cube_full};
 static PyObject *__pyx_pw_5utils_7m_funcs_37gen_cube_full(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_n_max = 0;
   PyObject *__pyx_v_prime_numbers = 0;
@@ -4612,33 +4613,33 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
   __pyx_L3_first_run:;
   if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 129, __pyx_L1_error)
 
-  /* "utils/m_funcs.pyx":134
- *     """Generate list of valid cube-full integers."""
+  /* "utils/m_funcs.pyx":139
+ *     n_list: list
  *     # Check to see if list will even be complete.
  *     if n_max <= max(prime_numbers):             # <<<<<<<<<<<<<<
  *         n_list = [i for i in m_range(1, n_max + 1)]
  *         for n in n_list:
  */
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_max, __pyx_cur_scope->__pyx_v_prime_numbers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_max, __pyx_cur_scope->__pyx_v_prime_numbers); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_n_max, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_n_max, __pyx_t_1, Py_LE); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_3) {
 
-    /* "utils/m_funcs.pyx":135
+    /* "utils/m_funcs.pyx":140
  *     # Check to see if list will even be complete.
  *     if n_max <= max(prime_numbers):
  *         n_list = [i for i in m_range(1, n_max + 1)]             # <<<<<<<<<<<<<<
  *         for n in n_list:
  *             if n == 1:
  */
-    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_2 = PyList_New(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_m_range); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_m_range); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_n_max, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_n_max, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __pyx_t_6 = NULL;
     __pyx_t_7 = 0;
@@ -4655,7 +4656,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_int_1, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -4664,14 +4665,14 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_6, __pyx_int_1, __pyx_t_5};
-      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     } else
     #endif
     {
-      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_8 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_8);
       if (__pyx_t_6) {
         __Pyx_GIVEREF(__pyx_t_6); PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6); __pyx_t_6 = NULL;
@@ -4682,7 +4683,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
       __Pyx_GIVEREF(__pyx_t_5);
       PyTuple_SET_ITEM(__pyx_t_8, 1+__pyx_t_7, __pyx_t_5);
       __pyx_t_5 = 0;
-      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_8, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
     }
@@ -4691,9 +4692,9 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
       __pyx_t_4 = __pyx_t_1; __Pyx_INCREF(__pyx_t_4); __pyx_t_9 = 0;
       __pyx_t_10 = NULL;
     } else {
-      __pyx_t_9 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_9 = -1; __pyx_t_4 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_10 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 135, __pyx_L1_error)
+      __pyx_t_10 = Py_TYPE(__pyx_t_4)->tp_iternext; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 140, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     for (;;) {
@@ -4701,17 +4702,17 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
         if (likely(PyList_CheckExact(__pyx_t_4))) {
           if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 135, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         } else {
           if (__pyx_t_9 >= PyTuple_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 135, __pyx_L1_error)
+          __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_4, __pyx_t_9); __Pyx_INCREF(__pyx_t_1); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
         }
@@ -4721,7 +4722,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 135, __pyx_L1_error)
+            else __PYX_ERR(0, 140, __pyx_L1_error)
           }
           break;
         }
@@ -4731,14 +4732,14 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
       __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_i, __pyx_t_1);
       __Pyx_GIVEREF(__pyx_t_1);
       __pyx_t_1 = 0;
-      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_cur_scope->__pyx_v_i))) __PYX_ERR(0, 135, __pyx_L1_error)
+      if (unlikely(__Pyx_ListComp_Append(__pyx_t_2, (PyObject*)__pyx_cur_scope->__pyx_v_i))) __PYX_ERR(0, 140, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GIVEREF(__pyx_t_2);
     __pyx_cur_scope->__pyx_v_n_list = ((PyObject*)__pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "utils/m_funcs.pyx":136
+    /* "utils/m_funcs.pyx":141
  *     if n_max <= max(prime_numbers):
  *         n_list = [i for i in m_range(1, n_max + 1)]
  *         for n in n_list:             # <<<<<<<<<<<<<<
@@ -4749,9 +4750,9 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
     for (;;) {
       if (__pyx_t_9 >= PyList_GET_SIZE(__pyx_t_2)) break;
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_4 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_9); __Pyx_INCREF(__pyx_t_4); __pyx_t_9++; if (unlikely(0 < 0)) __PYX_ERR(0, 141, __pyx_L1_error)
       #else
-      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
+      __pyx_t_4 = PySequence_ITEM(__pyx_t_2, __pyx_t_9); __pyx_t_9++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       #endif
       __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_n);
@@ -4759,20 +4760,20 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "utils/m_funcs.pyx":137
+      /* "utils/m_funcs.pyx":142
  *         n_list = [i for i in m_range(1, n_max + 1)]
  *         for n in n_list:
  *             if n == 1:             # <<<<<<<<<<<<<<
  *                 yield n
  *             elif n > 1:
  */
-      __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_cur_scope->__pyx_v_n, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_EqObjC(__pyx_cur_scope->__pyx_v_n, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 137, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_3) {
 
-        /* "utils/m_funcs.pyx":138
+        /* "utils/m_funcs.pyx":143
  *         for n in n_list:
  *             if n == 1:
  *                 yield n             # <<<<<<<<<<<<<<
@@ -4795,9 +4796,9 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
         __pyx_cur_scope->__pyx_t_0 = 0;
         __Pyx_XGOTREF(__pyx_t_2);
         __pyx_t_9 = __pyx_cur_scope->__pyx_t_1;
-        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 138, __pyx_L1_error)
+        if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 143, __pyx_L1_error)
 
-        /* "utils/m_funcs.pyx":137
+        /* "utils/m_funcs.pyx":142
  *         n_list = [i for i in m_range(1, n_max + 1)]
  *         for n in n_list:
  *             if n == 1:             # <<<<<<<<<<<<<<
@@ -4807,19 +4808,19 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
         goto __pyx_L9;
       }
 
-      /* "utils/m_funcs.pyx":139
+      /* "utils/m_funcs.pyx":144
  *             if n == 1:
  *                 yield n
  *             elif n > 1:             # <<<<<<<<<<<<<<
  *                 for p in prime_numbers:
  *                     ppp = p ** 3
  */
-      __pyx_t_4 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_n, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 139, __pyx_L1_error)
-      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 139, __pyx_L1_error)
+      __pyx_t_4 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_n, __pyx_int_1, Py_GT); __Pyx_XGOTREF(__pyx_t_4); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 144, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_IsTrue(__pyx_t_4); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 144, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       if (__pyx_t_3) {
 
-        /* "utils/m_funcs.pyx":140
+        /* "utils/m_funcs.pyx":145
  *                 yield n
  *             elif n > 1:
  *                 for p in prime_numbers:             # <<<<<<<<<<<<<<
@@ -4828,15 +4829,15 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
  */
         if (unlikely(__pyx_cur_scope->__pyx_v_prime_numbers == Py_None)) {
           PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-          __PYX_ERR(0, 140, __pyx_L1_error)
+          __PYX_ERR(0, 145, __pyx_L1_error)
         }
         __pyx_t_4 = __pyx_cur_scope->__pyx_v_prime_numbers; __Pyx_INCREF(__pyx_t_4); __pyx_t_11 = 0;
         for (;;) {
           if (__pyx_t_11 >= PyList_GET_SIZE(__pyx_t_4)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_11); __Pyx_INCREF(__pyx_t_1); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 140, __pyx_L1_error)
+          __pyx_t_1 = PyList_GET_ITEM(__pyx_t_4, __pyx_t_11); __Pyx_INCREF(__pyx_t_1); __pyx_t_11++; if (unlikely(0 < 0)) __PYX_ERR(0, 145, __pyx_L1_error)
           #else
-          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
+          __pyx_t_1 = PySequence_ITEM(__pyx_t_4, __pyx_t_11); __pyx_t_11++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 145, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           #endif
           __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_p);
@@ -4844,51 +4845,51 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
           __Pyx_GIVEREF(__pyx_t_1);
           __pyx_t_1 = 0;
 
-          /* "utils/m_funcs.pyx":141
+          /* "utils/m_funcs.pyx":146
  *             elif n > 1:
  *                 for p in prime_numbers:
  *                     ppp = p ** 3             # <<<<<<<<<<<<<<
  *                     if n % p == 0 and n % ppp == 0:
  *                         yield n
  */
-          __pyx_t_1 = PyNumber_Power(__pyx_cur_scope->__pyx_v_p, __pyx_int_3, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 141, __pyx_L1_error)
+          __pyx_t_1 = PyNumber_Power(__pyx_cur_scope->__pyx_v_p, __pyx_int_3, Py_None); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_ppp);
           __Pyx_XDECREF_SET(__pyx_cur_scope->__pyx_v_ppp, __pyx_t_1);
           __Pyx_GIVEREF(__pyx_t_1);
           __pyx_t_1 = 0;
 
-          /* "utils/m_funcs.pyx":142
+          /* "utils/m_funcs.pyx":147
  *                 for p in prime_numbers:
  *                     ppp = p ** 3
  *                     if n % p == 0 and n % ppp == 0:             # <<<<<<<<<<<<<<
  *                         yield n
  * 
  */
-          __pyx_t_1 = PyNumber_Remainder(__pyx_cur_scope->__pyx_v_n, __pyx_cur_scope->__pyx_v_p); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_1 = PyNumber_Remainder(__pyx_cur_scope->__pyx_v_n, __pyx_cur_scope->__pyx_v_p); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
-          __pyx_t_8 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_8 = __Pyx_PyInt_EqObjC(__pyx_t_1, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_8); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
           if (__pyx_t_12) {
           } else {
             __pyx_t_3 = __pyx_t_12;
             goto __pyx_L14_bool_binop_done;
           }
-          __pyx_t_8 = PyNumber_Remainder(__pyx_cur_scope->__pyx_v_n, __pyx_cur_scope->__pyx_v_ppp); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_8 = PyNumber_Remainder(__pyx_cur_scope->__pyx_v_n, __pyx_cur_scope->__pyx_v_ppp); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_8);
-          __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_8, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_1 = __Pyx_PyInt_EqObjC(__pyx_t_8, __pyx_int_0, 0, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-          __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 142, __pyx_L1_error)
+          __pyx_t_12 = __Pyx_PyObject_IsTrue(__pyx_t_1); if (unlikely(__pyx_t_12 < 0)) __PYX_ERR(0, 147, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_3 = __pyx_t_12;
           __pyx_L14_bool_binop_done:;
           if (__pyx_t_3) {
 
-            /* "utils/m_funcs.pyx":143
+            /* "utils/m_funcs.pyx":148
  *                     ppp = p ** 3
  *                     if n % p == 0 and n % ppp == 0:
  *                         yield n             # <<<<<<<<<<<<<<
@@ -4918,9 +4919,9 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
             __Pyx_XGOTREF(__pyx_t_4);
             __pyx_t_9 = __pyx_cur_scope->__pyx_t_1;
             __pyx_t_11 = __pyx_cur_scope->__pyx_t_3;
-            if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 143, __pyx_L1_error)
+            if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 148, __pyx_L1_error)
 
-            /* "utils/m_funcs.pyx":142
+            /* "utils/m_funcs.pyx":147
  *                 for p in prime_numbers:
  *                     ppp = p ** 3
  *                     if n % p == 0 and n % ppp == 0:             # <<<<<<<<<<<<<<
@@ -4929,7 +4930,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
  */
           }
 
-          /* "utils/m_funcs.pyx":140
+          /* "utils/m_funcs.pyx":145
  *                 yield n
  *             elif n > 1:
  *                 for p in prime_numbers:             # <<<<<<<<<<<<<<
@@ -4939,7 +4940,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
         }
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-        /* "utils/m_funcs.pyx":139
+        /* "utils/m_funcs.pyx":144
  *             if n == 1:
  *                 yield n
  *             elif n > 1:             # <<<<<<<<<<<<<<
@@ -4949,7 +4950,7 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
       }
       __pyx_L9:;
 
-      /* "utils/m_funcs.pyx":136
+      /* "utils/m_funcs.pyx":141
  *     if n_max <= max(prime_numbers):
  *         n_list = [i for i in m_range(1, n_max + 1)]
  *         for n in n_list:             # <<<<<<<<<<<<<<
@@ -4959,8 +4960,8 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
     }
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-    /* "utils/m_funcs.pyx":134
- *     """Generate list of valid cube-full integers."""
+    /* "utils/m_funcs.pyx":139
+ *     n_list: list
  *     # Check to see if list will even be complete.
  *     if n_max <= max(prime_numbers):             # <<<<<<<<<<<<<<
  *         n_list = [i for i in m_range(1, n_max + 1)]
@@ -4973,8 +4974,8 @@ static PyObject *__pyx_gb_5utils_7m_funcs_38generator2(__pyx_CoroutineObject *__
  * 
  * 
  * def gen_cube_full(n_max: int, prime_numbers: list):             # <<<<<<<<<<<<<<
- *     ppp: int
- *     n_list: list
+ *     """
+ *     Generate list of valid cube-full integers.
  */
 
   /* function exit code */
@@ -5445,7 +5446,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_max = __Pyx_GetBuiltinName(__pyx_n_s_max); if (!__pyx_builtin_max) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_builtin_max = __Pyx_GetBuiltinName(__pyx_n_s_max); if (!__pyx_builtin_max) __PYX_ERR(0, 139, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -5663,8 +5664,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * 
  * 
  * def gen_cube_full(n_max: int, prime_numbers: list):             # <<<<<<<<<<<<<<
- *     ppp: int
- *     n_list: list
+ *     """
+ *     Generate list of valid cube-full integers.
  */
   __pyx_tuple__36 = PyTuple_Pack(7, __pyx_n_s_n_max, __pyx_n_s_prime_numbers, __pyx_n_s_ppp, __pyx_n_s_n_list, __pyx_n_s_n, __pyx_n_s_p, __pyx_n_s_i); if (unlikely(!__pyx_tuple__36)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__36);
@@ -6186,8 +6187,8 @@ if (!__Pyx_RefNanny) {
  * 
  * 
  * def gen_cube_full(n_max: int, prime_numbers: list):             # <<<<<<<<<<<<<<
- *     ppp: int
- *     n_list: list
+ *     """
+ *     Generate list of valid cube-full integers.
  */
   __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_5utils_7m_funcs_37gen_cube_full, NULL, __pyx_n_s_utils_m_funcs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
