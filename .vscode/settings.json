@@ -44,5 +44,9 @@
         "utility": "cpp"
     },
     "python.pythonPath": "C:/Users/Work1/AppData/Local/Programs/Spyder/venv/Scripts/python.exe",
-    "python.venvFolders": ["C:/Users/Work1/AppData/Local/Programs/Spyder"]
+    "python.venvFolders": [
+        "C:/Users/Work1/AppData/Local/Programs/Spyder"
+    ],
+    "C_Cpp.formatting": "Disabled",
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

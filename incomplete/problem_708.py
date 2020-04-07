@@ -20,34 +20,125 @@ Description:
     Find S(1014).
 """
 
-# https://jakevdp.github.io/blog/2012/08/08/memoryview-benchmarks/
+from __future__ import print_function
 
-# %load_ext Cython
-# import os
-# import warnings
+"""
+%load_ext cython
+"""
 
-# os.environ["MODIN_ENGINE"] = "dask"
-
-# warnings.simplefilter("ignore", FutureWarning)
-
-# # import cython
-# import numpy as np
-# import modin.pandas as pd
-# import pandas as pd
-
-# pd.set_option("compute.use_numexpr", True)
-# pd.set_option('display.max_rows', 25)
-# pd.set_option('max_colwidth', 60)
-# pd.set_option('display.precision', 4)
-# pd.set_option('mode.chained_assignment', None)
-
-# import numexpr as ne
-# pd.set_option("compute.use_bottleneck", True)
-
-from functools import reduce
+"""
+%%cython -a
+"""
 
 import numpy as np
-import bottleneck as bn
+# cimport numpy as np
+import cython
+from cython.parallel import prange
+
+DTYPE = np.intc
+
+# @cython.cfunc
+# @cython.returns(cython.double)
+# @cython.locals(n=cython.double, res=cython.ulonglong)
+# def sqrt_(n):
+#     res = n ** (1/2)
+#     return res
+
+@cython.cfunc
+@cython.returns(cython.ulonglong)
+@cython.locals(q=cython.ulonglong, res=cython.ulonglong)
+def w(q):
+    res = int(np.sqrt(q)) + 1
+    return res
+
+
+@cython.cfunc
+@cython.returns(cython.uint)
+@cython.locals(n=cython.ulonglong, q=cython.ulonglong, i=cython.ulonglong)
+def pd(n):
+    """Prime decomposition function."""
+    while n % 2 == 0:
+        yield 2
+        n /= 2
+
+    q = w(n)
+
+    for i in prange(start=3, stop=q, step=2, nogil=True, schedule='guided'):
+        while n % i == 0:
+            yield 2
+            n /= i
+
+    if n > 2:
+        yield 2
+
+
+# @exceptval(-1, check=True)
+@cython.cfunc
+@cython.returns(cython.ulonglong)
+@cython.locals(n=cython.ulonglong, result=cython.ulonglong, xyz=cython.ulong[100])
+def f(n):
+    result = 1
+    if n > 1:
+        xyz = list(pd(n))
+        result = np.multiply.reduce(xyz)
+    return result
+
+
+@cython.cfunc
+@cython.returns(cython.ulonglong)
+@cython.locals(N=cython.double,
+               n=cython.ulonglong,
+               i=cython.ulonglong,
+               tot=cython.ulonglong,
+               )
+def S(N):
+    n = N
+    i = 1
+    tot = 0
+    while i <= n:
+        tot += f(i)
+        i += 1
+    return tot
+
+
+if __name__ == "__main__":
+    debug = False
+    res = 0
+    if debug:
+        # test = 10000
+        test = int(1e6)
+        res = S(test)
+    else:
+        actual = int(1e8)
+        res = S(actual)
+    if res:
+        print(res)
+
+# test2 = 1000000
+# S(test2)
+
+# res = S(1e8) # 9613563919
+
+
+
+
+### Old code
+
+# @cython.locals(x=cython.ulonglong)
+# cdef step(x):
+#     return 1 + (x<<2) - ((x>>1)<<1)
+# def pd(double n) except -1:
+#     """Prime decomposition function."""
+#     cdef double list res = []
+#     cdef double maxq, d, q, res
+#     maxq = w(n)
+#     d = 1
+#     q = 2 if n % 2 == 0 else 3
+#     while q <= maxq and n % q != 0:
+#         q = step_(d)
+#         d += 1
+#     res = [q] + pd(n // q) if q <= maxq else [n]
+#     return [2 for _ in res]
 
 
 # def reducer(x):
@@ -63,27 +154,8 @@ import bottleneck as bn
 # reducer(n_list)
 
 
-def sqrt_(n):
-    return n ** (1/2)
-
-def step_(x):
-    return 1 + (x<<2) - ((x>>1)<<1)
-
-def maxq_(q):
-    return int(np.floor(np.sqrt(q)))
-
-
-def fac2(n):
-    maxq = maxq_(n)
-    d = 1
-    q = 2 if n % 2 == 0 else 3 
-    while q <= maxq and n % q != 0:
-        q = step_(d)
-        d += 1
-    res = [q] + fac2(n // q) if q <= maxq else [n]
-    return [2 for _ in res]
-    # return [q] + fac(n // q) if q <= maxq else [n]
-
+# def sqrt_(n):
+#     return n ** (1/2)
 
 # def pfs2(n):
 #     """
@@ -100,45 +172,6 @@ def fac2(n):
 
 #     if n > 2:
 #         yield 2
-
-
-def f(n):
-    result = 1
-    if n > 1:
-        # result = reducer(p_)
-        result = reduce(np.multiply, fac2(n))
-    return result
-
-
-def S(N):
-    N = int(N)
-    i, tot_, incr_ = int(0), int(0), int(1)
-    while i <= N:
-        tot_ += f(i)
-        i += incr_
-    return tot_
-
-
-if __name__ == "__main__":
-    debug = True
-    res = 0
-    if debug:
-        # test = 10000
-        test = 1000000
-        res = S(test)
-
-    # actual = 1e8
-    # res = S(actual)
-    if res:
-        print(res)
-
-# test2 = 1000000
-# S(test2)
-
-# res = S(1e8) # 9613563919
-
-
-
 
 
 # ### Using numba

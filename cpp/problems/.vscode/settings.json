@@ -1,9 +1,9 @@
 {
     "files.associations": {
-        ".pyx": "python",
-        "*.pyx": "python",
-        "*.jl": "julia",
         "*.html": "html",
+        "*.pyx": "python",
+        ".pyx": "python",
+        "*.jl": "julia",
         "unordered_map": "cpp",
         "algorithm": "cpp",
         "chrono": "cpp",
@@ -54,6 +54,7 @@
         "xutility": "cpp",
         "unordered_set": "cpp",
         "sstream": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "numeric": "cpp"
     }
 }
