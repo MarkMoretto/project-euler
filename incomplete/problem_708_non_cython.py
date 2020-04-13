@@ -13,46 +13,46 @@ Description:
     A positive integer, n, is factorised into prime factors. We define f(n) to be the
     product when each prime factor is replaced with 2. In addition we define f(1)=1.
     
-    For example, 90=2×3×3×5, then replacing the primes, 2×2×2×2=16, hence f(90)=16.
+    For example, 90 = 2 × 3 × 3 × 5,
+    then replacing the primes, 2 × 2 × 2 × 2 = 16,
+    hence f(90) = 16.
     
-    Let S(N)=∑n=1Nf(n). You are given S(108)=9613563919.
+    Let S(N) = ∑n = 1Nf(n).
+
+    You are given S(108) = 9613563919.
     
     Find S(1014).
 """
 
+import os
+os.environ["NUMBA_THREADING_LAYER"] = "tbb"
+os.environ["NUMBA_ENABLE_AVX"] = "1"
 
-import math
+
 import numpy as np
-# import cupy as cp
 
 from numba import (
-        jit,
         njit,
         prange,
-        generated_jit,
-        vectorize as nvectorize,
-        cuda as ncuda,
+        vectorize,
+        cuda,
         )
 
 
 
-@nvectorize(["int64(float64)"])
-def w(q):
-    return np.uint64(q ** 0.5 + 1)
-
-
-
-@njit(["float64(int64)"])
+@njit(["float64(int64)"], fastmath=True)
 def f(n):
     """Prime decomposition function."""
-    result = float(1)
-    two = float(2)
+
+    result = 1.
+    two = 2.
+
     while n % 2 == 0:
         result *= two
         n /= 2
 
-    q_ = w(n)
-    for i in prange(3, q_, 2):
+    max_n = np.int64(n ** 0.5 + 1)
+    for i in range(3, max_n, 2):
         while n % i == 0:
             result *= two
             n /= i
@@ -63,27 +63,46 @@ def f(n):
 
 
 
-
-# njit = jit(nopython=True)
-@njit(["uint64(uint64)"], fastmath=True)
+@njit(["uint64(int64)"], fastmath=True, parallel=True)
 def S(N):
-    tot = 0.
-    max_n = np.int64(N + 1)
-    for i in prange(1, max_n):
+    tot = np.float64(0)
+    N += 1
+    for i in prange(1, N):
         tot += f(i)
-    return np.uint64(tot)
+    return tot
 
 
 
 if __name__ == "__main__":
 
-    test = np.uint64(1e8)
-    res = S(test)
+    # Expected test results for a given integer
+    expected = {
+            "1e7": np.uint64(746246327),
+            "1e8": np.uint64(9613563919),
+            }
+
+    test_str = "1e7"
+    test_value = int(eval(f"{test_str}"))
+    res = S(test_value)
+
+    print(f"{res}")
+
+    if expected[test_str] == res:
+        print("Result matches expected!")
 
 
-    print(res)
 
 
+"""
+# Possible caching
+
+import tempfile as tf
+td = tf.TemporaryDirectory(prefix="NumbaCache")
+os.environ["NUMBA_CACHE_DIR"] = td.name
+os.environ["CACHE_DIR"] = td.name
+
+td.cleanup()
+"""
 
 # @jit(["int64[:](float64)", "int32[:](float32)"])
 # def p(num):
