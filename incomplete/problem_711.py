@@ -37,6 +37,7 @@ Description:
 
 import numpy as np
 import itertools as ittr
+from itertools import combinations_with_replacement as cwr
 
 
 def mod_check(num):
@@ -72,88 +73,121 @@ def format_print(token_string = "n, i, ni_sum, n_gap, i_ones, ones_cumsum", widt
     out = "".join([f"{{{i.strip()}:>{width}}}" for i in h])
     print(f'print(f"{out}")')
 
-# memoize decorator
-# @memoize
-def memoize(f):
-    h = {}
-    def g(*u):
-        if u in h:
-            return h[u]
-        else:
-            r = f(*u)
-            h[u] = r
-            return r
-    return g
+# # memoize decorator
+# # @memoize
+# def memoize(f):
+#     h = {}
+#     def g(*u):
+#         if u in h:
+#             return h[u]
+#         else:
+#             r = f(*u)
+#             h[u] = r
+#             return r
+#     return g
 
 # sum(map(int, list(bin(2).replace("0b",""))))
 
-n = 4
-two_n = 2 ** n
-rng = np.arange(n, two_n + 1)
+# n = 1
+# two_n = 2 ** n
+# rng = np.arange(n, two_n + 1)
 
 # np.cumsum(np.arange(n, two_n + 1))
 
 
 
-tot_n = n
+# tot_n = n
 
-ones_cumsum = 0
-for i in rng:
-    ni_sum = n + i
-    if i >= n and ni_sum <= two_n:
-        n_gap = i - n
-        i_ones = count_ones(i)
-        if n_parity(i_ones) < 0:
-            ones_cumsum += i_ones
-            print(f"{n:>4}{i:>4}{ni_sum:>4}{n_gap:>4}{i_ones:>4}{ones_cumsum:>4}")
+# ones_cumsum = 0
+# for i in rng:
+#     ni_sum = n + i
+#     if i >= n and ni_sum <= two_n:
+#         n_gap = i - n
+#         i_ones = count_ones(i)
+#         if n_parity(i_ones) < 0:
+#             ones_cumsum += i_ones
+#             print(f"{n:>4}{i:>4}{ni_sum:>4}{n_gap:>4}{i_ones:>4}{ones_cumsum:>4}")
 
 
-dcols = ["oscar","eric","tot N","ij sum","tot 1s"]
-dcols_len_dict = {k:len(k) + 2 for k in dcols}
-cols_len = sum(dcols_len_dict.values())
+# dcols = ["oscar","eric","tot N","ij sum","tot 1s"]
+# dcols_len_dict = {k:len(k) + 2 for k in dcols}
+# cols_len = sum(dcols_len_dict.values())
 
-msg = list()
-for i in rng:
-    tot_n = i
-    i_ones = count_ones(i)
-    tot_ones = i_ones
-    for j in rng:
-        tot_n += j
-        j_ones = count_ones(j)
-        if tot_n <= two_n:
-            curr_sum = i + j
-            tot_ones += j_ones
-            msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
-for i in rng:
-    tot_n = i
-    i_ones = count_ones(i)
-    tot_ones = i_ones
-    for j in rng[::-1]:
-        tot_n += j
-        j_ones = count_ones(j)
-        if tot_n <= two_n:
-            curr_sum = i + j
-            tot_ones += j_ones
-            msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
+# msg = list()
+# for i in rng:
+#     tot_n = i
+#     i_ones = count_ones(i)
+#     tot_ones = i_ones
+#     for j in rng:
+#         tot_n += j
+#         j_ones = count_ones(j)
+#         if tot_n <= two_n:
+#             curr_sum = i + j
+#             tot_ones += j_ones
+#             msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
+# for i in rng:
+#     tot_n = i
+#     i_ones = count_ones(i)
+#     tot_ones = i_ones
+#     for j in rng[::-1]:
+#         tot_n += j
+#         j_ones = count_ones(j)
+#         if tot_n <= two_n:
+#             curr_sum = i + j
+#             tot_ones += j_ones
+#             msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
 
-print(f"{dcols[0]:^7}{dcols[1]:^6}{dcols[2]:^7}{dcols[3]:^8}{dcols[4]:^8}")
-print("-" * cols_len)
-print("\n".join(msg))
+# print(f"{dcols[0]:^7}{dcols[1]:^6}{dcols[2]:^7}{dcols[3]:^8}{dcols[4]:^8}")
+# print("-" * cols_len)
+# print("\n".join(msg))
+
+
+n = 3
+two_n = 2 ** n
+rng = np.arange(1, two_n + 1)
 
 
 tot_ones = 0
 n_sum = 0
 i = n
 
-ddict = dict(oscar=[], eric=[])
+# ddict = dict(oscar=[], eric=[])
 
-# Seed initial turn by Oscar
+# Seed initial n value
 
 bin_ones = count_ones(i)
 tot_ones += bin_ones
 n_sum += i
 n_gap = two_n - n_sum
 i += 1
+
+
+
+# Need to find best current score based on this and next move
+# Cartesian product with n <= 2 ** n constraint
+res = [[o, e] for o in rng for e in rng if sum([o, e]) <= two_n]
+
+# np.array(np.meshgrid(rng, rng)).T.reshape(-1,4)
+res2 = np.array(np.meshgrid(rng, rng)).T.reshape(-1,2)
+res2 = np.where(sum(res2) <= two_n)
+
+for m in res:
+    oscar, eric = m[0], m[1]
+
+    tot_ones = count_ones(i)
+    o_ones = count_ones(oscar)
+    e_ones = count_ones(eric)
+    o_tot_ones = tot_ones + o_ones
+    e_tot_ones = o_tot_ones + e_ones
+    print(oscar, eric, o_ones, e_ones, o_tot_ones, e_tot_ones,)
+
+
+
+for o in rng:
+    for e in rng:
+        if sum([o, e]) <= two_n:
+            
+
 
 
 while True:
@@ -171,22 +205,22 @@ while True:
         n_sum += x
         n_gap = two_n - n_sum
         i += optimal_i
-        ddict["eric"].append(n)
+        # ddict["eric"].append(n)
 
-ddict["oscar"].append(n)
-
-
-
-    bin_ones = count_ones(i)
-    print(f"{i}: {bin_str(i)}, {bin_ones}")
-    tot += count_ones(i)
-    n_sum += i
-    n_gap = two_n - n_sum
-    i += 1
+# ddict["oscar"].append(n)
 
 
 
+# bin_ones = count_ones(i)
+# print(f"{i}: {bin_str(i)}, {bin_ones}")
+# tot += count_ones(i)
+# n_sum += i
+# n_gap = two_n - n_sum
+# i += 1
 
-print(f"\nSum of all n: {tot}")
-print(f"\nn_sum final: {n_sum}")
+
+
+
+# print(f"\nSum of all n: {tot}")
+# print(f"\nn_sum final: {n_sum}")
 
