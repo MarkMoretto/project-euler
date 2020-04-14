@@ -9,9 +9,14 @@ URI: https://projecteuler.net/problem=711
 Status: Incomplete
 Contributor(s): Mark Moretto
 
+https://www.groundai.com/project/two-player-games-for-efficient-non-convex-constrained-optimization/1
+
 Description:
-    Oscar and Eric play the following game. First, they agree on a positive
-    integer n, and they begin by writing its binary representation on a blackboard.
+    Oscar and Eric play the following game.
+
+    First, they agree on a positive integer n, and they begin by writing its binary
+    representation on a blackboard.
+
     They then take turns, with Oscar going first, to write a number on the
     blackboard in binary representation, such that the sum of all written numbers
     does not exceed 2n.
@@ -31,12 +36,16 @@ Description:
 """
 
 import numpy as np
+import itertools as ittr
+
 
 def mod_check(num):
     return num % 1000000007 == 0
 
+
 def bin_str(num):
     return bin(num).replace("0b","")
+
 
 def bin_sum(binary_n_string):
     return sum(map(int, list(binary_n_string)))
@@ -49,6 +58,7 @@ def count_ones(num):
         num >>= 1
     return cnt
 
+
 def n_parity(N):
     parity = 0
     while N:
@@ -57,18 +67,33 @@ def n_parity(N):
     return parity
 
 
-
-# sum(map(int, list(bin(2).replace("0b",""))))
-
-n = 5
-two_n = 2 ** n
-rng = np.arange(n, two_n + 1)
-# np.cumsum(np.arange(n, two_n + 1))
-col_str = "n, i, ni_sum, n_gap, i_ones, ones_cumsum"
-def format_print(token_string, width=4):
+def format_print(token_string = "n, i, ni_sum, n_gap, i_ones, ones_cumsum", width=4):
     h = token_string.split(",")
     out = "".join([f"{{{i.strip()}:>{width}}}" for i in h])
     print(f'print(f"{out}")')
+
+# memoize decorator
+# @memoize
+def memoize(f):
+    h = {}
+    def g(*u):
+        if u in h:
+            return h[u]
+        else:
+            r = f(*u)
+            h[u] = r
+            return r
+    return g
+
+# sum(map(int, list(bin(2).replace("0b",""))))
+
+n = 4
+two_n = 2 ** n
+rng = np.arange(n, two_n + 1)
+
+# np.cumsum(np.arange(n, two_n + 1))
+
+
 
 tot_n = n
 
@@ -81,6 +106,39 @@ for i in rng:
         if n_parity(i_ones) < 0:
             ones_cumsum += i_ones
             print(f"{n:>4}{i:>4}{ni_sum:>4}{n_gap:>4}{i_ones:>4}{ones_cumsum:>4}")
+
+
+dcols = ["oscar","eric","tot N","ij sum","tot 1s"]
+dcols_len_dict = {k:len(k) + 2 for k in dcols}
+cols_len = sum(dcols_len_dict.values())
+
+msg = list()
+for i in rng:
+    tot_n = i
+    i_ones = count_ones(i)
+    tot_ones = i_ones
+    for j in rng:
+        tot_n += j
+        j_ones = count_ones(j)
+        if tot_n <= two_n:
+            curr_sum = i + j
+            tot_ones += j_ones
+            msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
+for i in rng:
+    tot_n = i
+    i_ones = count_ones(i)
+    tot_ones = i_ones
+    for j in rng[::-1]:
+        tot_n += j
+        j_ones = count_ones(j)
+        if tot_n <= two_n:
+            curr_sum = i + j
+            tot_ones += j_ones
+            msg.append(f"{i:^7}{j:^6}{tot_n:^7}{curr_sum:^8}{tot_ones:^8}")
+
+print(f"{dcols[0]:^7}{dcols[1]:^6}{dcols[2]:^7}{dcols[3]:^8}{dcols[4]:^8}")
+print("-" * cols_len)
+print("\n".join(msg))
 
 
 tot_ones = 0
