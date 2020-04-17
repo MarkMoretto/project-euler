@@ -57,14 +57,14 @@ def f_cuda(n):
     return np.float64(result)
 
 
-@guvectorize("(u8, f8[:])", '() -> (n)', target='cuda', nopython=True)
-# @cuda.jit
+#@guvectorize("(u8[:], f8[:])", '(n) -> (n)', target='cuda', nopython=True)
+@cuda.jit
 def S_cuda(N, tot_arr):
     pos = cuda.grid(1)
 
-    # max_n = N.item() + 1
-    N += 1
-    for i in range(1, N):
+    max_n = N.item() + 1
+    #N += 1
+    for i in range(1, max_n):
         tot_arr[pos] += f_cuda(i)
     cuda.syncthreads()
 
@@ -74,10 +74,11 @@ def S_cuda(N, tot_arr):
 
 if __name__ == "__main__":
 
-    # x_gpu = cp.array([0], dtype = cp.float64)
+    #x_gpu = cp.array([0], dtype = cp.float64)
+    out_gpu = cp.array([0], dtype=cp.float64)
 
-    # tpb = 1
-    # bpg = (out_gpu.size + (tpb - 1)) // tpb
+    tpb = 16
+    bpg = (out_gpu.size + (tpb - 1)) // tpb
 
     # # Expected test results for a given integer
     # expected = {
@@ -89,11 +90,12 @@ if __name__ == "__main__":
     # test_value = np.array(eval(f"{test_str}"), dtype=np.int64)
 
     # test_arr = cp.array([1e6], dtype=cp.int64)
-    test_arr = cp.uint64([1e6])
-    out_gpu = cp.empty(shape=(1,1), dtype=cp.float64)
+    test_val = cp.uint64([1e6])
+    #test_arr = cp.array([1e6], dtype=cp.uint64)
+    #out_gpu = cp.empty(shape=(1,), dtype=cp.float64)
 
-    # S_cuda[bpg, tpb](test_arr, out_gpu)
-    S_cuda(test_arr, out_gpu)
+    S_cuda[bpg, tpb](test_val, out_gpu)
+    # S_cuda(test_arr, out_gpu)
     res = out_gpu.get()
     print(f"{res}")
 

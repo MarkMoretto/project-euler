@@ -27,6 +27,11 @@ Description:
 import os
 os.environ["NUMBA_THREADING_LAYER"] = "tbb"
 os.environ["NUMBA_ENABLE_AVX"] = "1"
+os.environ["ENABLE_AVX"] = "1"
+os.environ["NUMBA_NUM_THREADS"] = f"{os.cpu_count() - 2}"
+os.environ["NUMBA_LOOP_VECTORIZE"] = "1"
+os.environ["NUMBA_OPT"] = "2"
+
 
 
 import numpy as np
