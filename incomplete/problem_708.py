@@ -22,6 +22,8 @@ Description:
 
 from __future__ import print_function
 
+def factors(n):
+    return [f for i in range(1, int(n**0.5) + 1) if n%i == 0 for f in (i, n//i)]
 """
 %load_ext cython
 """

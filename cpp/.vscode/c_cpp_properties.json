@@ -23,7 +23,30 @@
             },
             "cStandard": "c11",
             "cppStandard": "c++17"
-        }
+        },
+        {
+            "name": "Win32-CUDA",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/MinGW/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/MinGW/bin/g++.exe",
+            "intelliSenseMode": "${default}",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }        
     ],
     "version": 4
 }
