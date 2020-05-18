@@ -78,6 +78,30 @@ def get_set(iterable):
     return res
 
 
+def reverser(obj):
+    tmp = obj[::-1]
+    i = 0
+    while True:
+        try:
+            yield i, tmp[i]
+            i += 1
+        except IndexError:
+            break
+
+
+def squashem(iterable):
+    """Concatenate a set of positive integers into one integer."""
+    res = 0
+    if len(iterable) == 1:
+        res = iterable[0]
+    else:
+        for i, v in reverser(iterable):
+            res += pow(10, i) * v
+    return res
+
+# arr = [2,3,4]
+# squashem(*arr)
+
 def sqrt_(n):
     return n ** 0.5
 

@@ -1,0 +1,4 @@
+@ECHO off
+
+
+jupyter lab
