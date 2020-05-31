@@ -1,0 +1,4 @@
+*.bat
+
+# Rusty
+**/debug/
