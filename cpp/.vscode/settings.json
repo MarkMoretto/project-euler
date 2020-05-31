@@ -3,7 +3,7 @@
         "*.html": "html",
         "*.pyx": "python",
         "*.cu": "cpp",
-        ".pyx": "python",
+        "*.md": "markdown",
         "*.jl": "julia",
         "random": "cpp",
         "algorithm": "cpp",
@@ -68,6 +68,7 @@
         "cwctype": "cpp",
         "deque": "cpp",
         "memory_resource": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "iomanip": "cpp"
     }
 }
