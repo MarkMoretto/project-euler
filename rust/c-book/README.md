@@ -15,3 +15,5 @@ This is a module for running various chapter exercises in *The C Programming Lan
         <li><a href="https://doc.rust-lang.org/rust-by-example/mod/visibility.html" target="_blank">Crates and Modules</a></li>
     </ul>    
 </ul>
+
+* [Rust | Operators](https://doc.rust-lang.org/book/appendix-02-operators.html)
