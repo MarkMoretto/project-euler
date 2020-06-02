@@ -3,8 +3,8 @@
 SETLOCAL
 
 SET folder=chapter1
-SET filename=temp-conv-table.c
-SET outfilename=temptable
+SET filename=powerfunc.c
+SET outfilename=powers
 
 SET gcccmd=gcc -Wall -Wextra %folder%\%filename% -o %outfilename%
 
