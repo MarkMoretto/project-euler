@@ -115,6 +115,8 @@ def sq_eval(n):
             yield Element(n = i, root = tmp_sqrt)
 
 
+d = {e.n:e.root for e in sq_eval(int(1e6))}
+
 
 def sqrt_eval(num):
     tmp_sqrt = np.sqrt(num)
