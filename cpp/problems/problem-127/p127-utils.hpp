@@ -38,14 +38,14 @@ void remove_duplicates(T& v) {
 
 // Product of vector values (or arrays, if v >= C++11 used)
 template <typename NUM>
-NUM vproduct(NUM& v) {
+long vproduct(NUM& v) {
     // Start at 1 since 0 will return 0 after multiplication.
-    NUM out = 1;
+    long out = 1;
 
     for (auto &i : v) {
         out *= i;
     }
-    
+
     return out;
 }
 
