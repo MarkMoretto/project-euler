@@ -1,12 +1,17 @@
 /**
  * Title: 1000-digit Fibonacci number
  * URL: https://projecteuler.net/problem=25
+ * 
+ * GMP: https://gmplib.org/manual/Headers-and-Libraries#Headers-and-Libraries
+ * Compilation:
+ *  g++ -Wall -Wextra -o p25 25\problem-25.cxx -lgmpxx -lgmp
 */
 
 
 #include <iostream>
 // #include <vector>
 #include "p25.hpp"
+#include <gmpxx.h>
 
 
 const char nl = '\n';

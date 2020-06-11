@@ -23,10 +23,9 @@ int main() {
 
 */
 
-#pragma once
 
-#ifndef _H_CNT_DIGIT_TMPL_
-#define _H_CNT_DIGIT_TMPL_
+#ifndef H_CNT_DIGIT_TMPL_
+#define H_CNT_DIGIT_TMPL_
 
 
 // Base of the digits
