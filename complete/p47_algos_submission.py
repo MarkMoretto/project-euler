@@ -65,8 +65,6 @@ def equality(iterable: list) -> bool:
     False
     """
     return len(set(iterable)) in (0, 1)
-    # if iterable[:1]:
-    #     return iterable[1:] == iterable[:-1]
 
 
 def run(n: int) -> list:
@@ -75,9 +73,7 @@ def run(n: int) -> list:
     >>> run(3)
     [644, 645, 646]
     """
-
     base = 2
-
     while True:
         # Increment each value of a generated range
         # group = list(map(lambda x: base + x, [i for i in range(n)]))
@@ -96,17 +92,14 @@ def run(n: int) -> list:
         base += 1
 
 
-def solution(N: int = 4) -> int:
+def solution(n: int = 4) -> int:
     """Returns the first value of the first four consecutive integers to have four
     distinct prime factors each.
     >>> solution()
     134043
     """
-    results = run(N)
+    results = run(n)
     return results[0] if len(results) else None
-
-    # if len(results) > 0:
-    #     return results[0]
 
 
 if __name__ == "__main__":
