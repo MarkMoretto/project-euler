@@ -1,0 +1,6 @@
+2020.07.01 22:22:00 INFO  started: Metals version 0.9.1 in workspace 'C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\cpp'
+2020.07.01 22:22:00 INFO  time: initialize in 0.28s
+2020.07.01 22:22:01 WARN  no build tool detected in workspace 'C:\Users\Work1\Desktop\Info\PythonFiles\project-euler\cpp'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+Jul 01, 2020 10:22:08 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTraceNotification
+2020.07.01 22:56:55 INFO  shutting down Metals
