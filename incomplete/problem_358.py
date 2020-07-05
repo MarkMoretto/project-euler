@@ -41,9 +41,11 @@ Description:
 """
 
 from itertools import product as ittr_product
-# from functools import lru_cache
+from functools import lru_cache
 import concurrent.futures as ccf
 
+
+NUMS = (0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
 
 class Formatter:
     def __init__(self, length):
@@ -66,7 +68,7 @@ class Formatter:
 
 
 
-# @lru_cache(maxsize=None)
+@lru_cache(maxsize=None)
 def rotator(num_str: str):
     """
     Rotate a string of numbers indefinitely.
@@ -103,11 +105,10 @@ def producter(length: int):
     >>> next(p)
     '00001'
     """
-    # x = list(range(0, 10))
-    rng = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    p = ittr_product(rng, repeat=length)
 
-    # Advance iterable by 1 to avoid all zeroes tuple.
+    p = ittr_product(NUMS, repeat=length)
+
+    # Advance iterable by 1 to avoid all zeroes tuple. (0, 0, 0, ... , 0)
     p.__next__()
 
     while True:
@@ -124,21 +125,24 @@ def evaluator(ns: str):
 
     equal_ct = 0
 
-    zp = Formatter(len(ns))
+    # String length
+    ns_length = ns.__len__()
+
+    zp = Formatter(ns_length)
 
     r = rotator(ns)
-    cycles = [next(r) for _ in range(n_len)]
+    cycles = [next(r) for _ in range(ns_length)]
     
-    for i in range(1, n_len + 1):
+    for i in range(1, ns_length + 1):
         if zp.zeropad(f"{n * i}") in cycles:
             equal_ct += 1
 
-    if equal_ct == n_len:
+    if equal_ct == ns_length:
         print("cyclic number found!")
         return ns
 
 
-def run(target_length: int = 6):
+def run(target_length: int):
     p = producter(target_length)
     result = None
     while result is None:
@@ -157,7 +161,7 @@ def run(target_length: int = 6):
 
 
 if __name__ == "__main__":
-    LENGTH = 6
+    LENGTH = 16
     run(LENGTH)
 
 

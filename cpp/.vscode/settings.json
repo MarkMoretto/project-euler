@@ -69,6 +69,8 @@
         "deque": "cpp",
         "memory_resource": "cpp",
         "fstream": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "bitset": "cpp",
+        "regex": "cpp"
     }
 }
