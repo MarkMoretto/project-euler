@@ -8,6 +8,7 @@
 
 #include <vector>
 #include <string>
+#include <regex>
 #include <sstream>
 
 
@@ -47,6 +48,18 @@ IntVec string_to_int(STRING sinput) {
         outv.push_back(ii);
     }
     return outv;
+}
+
+
+void get_ints(STRING user_input) {
+
+    STRING no_digits_pattern = "([\\D]+)";
+    STRING ws_replacement = " ";
+
+    // Init regex constructor
+    std::regex ptrn (no_digits_pattern);
+
+    std::cout << std::regex_replace(user_input, ptrn, ws_replacement);    
 }
 
 
