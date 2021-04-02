@@ -1,8 +1,12 @@
 
 """
-Purpose: 
+Purpose: Project euler problem
 Date created: 2021-03-31
-https://projecteuler.net/problem=17
+
+Problen Number: 17
+Name: Number letter counts
+URL: https://projecteuler.net/problem=17
+
 Contributor(s):
     Mark M.
 """
