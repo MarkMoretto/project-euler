@@ -1,8 +1,8 @@
 {
     "files.associations": {
-        "*.html": "html",
         "*.pyx": "python",
         "*.cu": "cpp",
+        "*.html": "html",
         "*.md": "markdown",
         "*.jl": "julia",
         "random": "cpp",
@@ -71,6 +71,7 @@
         "fstream": "cpp",
         "iomanip": "cpp",
         "bitset": "cpp",
-        "regex": "cpp"
+        "regex": "cpp",
+        "cinttypes": "cpp"
     }
 }

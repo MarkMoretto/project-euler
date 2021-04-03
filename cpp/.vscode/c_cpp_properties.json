@@ -46,7 +46,32 @@
             },
             "cStandard": "c11",
             "cppStandard": "c++17"
-        }        
+        },
+        {
+            "name": "Win32-Python37",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/MinGW/include",
+                "C:/Users/Work1/AppData/Local/Programs/Spyder/venv/Include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "compilerPath": "C:/MinGW/bin/g++.exe",
+            "intelliSenseMode": "${default}",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "C:/Users/Work1/AppData/Local/Programs/Spyder/venv/Include"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            },
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }          
     ],
     "version": 4
 }

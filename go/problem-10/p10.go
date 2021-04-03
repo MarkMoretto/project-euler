@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 )
-/C/Users/Work1/Desktop/Info/PythonFiles/project-euler/go
+
 var Result int
 
 func isPrime(n int) bool {
