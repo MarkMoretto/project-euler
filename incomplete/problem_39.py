@@ -16,55 +16,64 @@ try:
 except ImportError:
     from functools import lru_cache as cache
 
+import concurrent.futures as ccf
 
 # p = 120
 # s = p // 2
 
 
-@cache(maxsize=100)
+@cache(maxsize=1000)
 def isqrt(n: int) -> int:
     """Quick square root function which returns an integer value."""
     return int(n ** 0.5)
 
-@cache(maxsize=100)
-def calc_c(a, b):
+@cache(maxsize=1000)
+def calc_c(a, b) -> int:
     return isqrt((a * a) + (b * b))
 
 
-def is_valid(a, b, c, p, s):
+def is_valid(a, b, c, p, s) -> bool:
     cond1 = a <= b and b < c
     cond2 = sum([a, b, c]) == p
     cond3 = (s - a) * (s - b) == s * (s - c)
     return cond1 and cond2 and cond3
 
 
-def count_solutions(perimeter: int):
+def count_solutions(perimeter: int) -> int:
     semiperimeter = perimeter // 2
+    sp = semiperimeter + 1
 
     results = []
-
-    for a in range(1, semiperimeter + 1):
-        for b in range(1, semiperimeter + 1):
-            if a <= b:
+    checked = set()
+    for a in range(1, sp):
+        for b in range(1, sp):
+            if not b in checked:
                 c = calc_c(a, b)
                 if is_valid(a, b, c, perimeter, semiperimeter):
-                    tmp_tup = (a, b, c)
-                    if not tuple(sorted(tmp_tup)) in results:
-                        results.append(tmp_tup)
+                    checked.add(a)
+                    results.append((a, b, c))
+                    # tmp_tup = (a, b, c)
+                    # if not tuple(sorted(tmp_tup)) in results:
+                    #     results.append(tmp_tup)
 
     return len(results)
 
 
-def main():
+def main(limit: int) -> None:
     max_count = -1
     max_value = 0
-
-    for i in range(3, 1001):
-        tmp = count_solutions(i)
-        if tmp > max_count:
-            max_count = tmp
-            max_value = i
+    max_range = limit + 1
+    with ccf.ThreadPoolExecutor() as executor:
+        count_futures = {executor.submit(count_solutions, i):i for i in range(3, max_range)}
+        for fut in ccf.as_completed(count_futures):
+            val = count_futures[fut]
+            data = fut.result()
+            if data > max_count:
+                max_count = data
+                max_value = val
     print(f"The maximum number of solutions is {max_count} for p = {max_value}")
 
-main()
+if __name__ == "__main__":
+    max_range: int = 1000
+    main(max_range)
 
