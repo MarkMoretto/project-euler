@@ -11,7 +11,10 @@ __all__ = [
         "isqrt",
         "is_prime",
         "is_composite",
+        "totienter",
         ]
+
+from math import gcd
 
 try:
     from functools import cache
@@ -98,3 +101,13 @@ def is_composite(n: int) -> bool:
 
 
 
+
+def totienter(n):
+    """Generate all relatively prime values to n"""
+    trng = range(1, n + 1)
+    for k in trng:
+        if gcd(n, k) == 1:
+            yield k
+        # k +=1
+
+assert (list(totienter(10)) == [1, 3, 7, 9]), "totient generator error."
