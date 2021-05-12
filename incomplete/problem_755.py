@@ -77,20 +77,20 @@ def fibs(n):
 # sample = fibs(TARGET)
 # res = [list(ittr.combinations(sample, i)) for i in range(2, len(sample) + 1)]
 
-r, c = 3, 4
-[[0] * c for _ in range(r)]
+# r, c = 3, 4
+# [[0] * c for _ in range(r)]
 
-class Matrix:
-    def __init__(self, n, m):
-        self.matrix = [[0] * m for _ in range(n)]
+# class Matrix:
+#     def __init__(self, n, m):
+#         self.matrix = [[0] * m for _ in range(n)]
 
-    def assign(self, n, m, value):
-        self.matrix[n][m] = value
+#     def assign(self, n, m, value):
+#         self.matrix[n][m] = value
 
-    def retrieve(self, n, m):
-        return self.matrix[n][m]
+#     def retrieve(self, n, m):
+#         return self.matrix[n][m]
 
-m = Matrix(3, 4)
+# m = Matrix(3, 4)
 
 @cache(maxsize=None)
 def f(n):
