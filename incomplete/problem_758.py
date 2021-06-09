@@ -13,5 +13,8 @@ Contributor(s):
     Mark M.
 """
 
+from math import gcd
 
 # Bucket size and capacity.
+
+def binary_gcd(u: int, v: int) -> int:
