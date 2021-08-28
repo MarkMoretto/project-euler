@@ -37,13 +37,24 @@ func FibRecursive(n uint64, fibcache map[uint64]uint64) uint64 {
 }
 
 // https://betterprogramming.pub/dynamic-programming-in-go-a95d32ee9953
-func FibEfficient(maxValue uint64) uint64 {
+// func FibEfficient(maxValue uint64) uint64 {
+// 	memoCache := make(map[uint64]uint64)
+// 	workerCache := make([]uint64, maxValue)
+// 	var i uint64
+// 	for i = 1; i <= maxValue; i++ {
+// 		workerCache[i-1] = FibRecursive(i, memoCache)
+// 	}
+// 	result := workerCache[maxValue-1]
+// 	return result
+// }
+
+func FibEfficient(maxValue uint64) (result uint64) {
 	memoCache := make(map[uint64]uint64)
 	workerCache := make([]uint64, maxValue)
 	var i uint64
 	for i = 1; i <= maxValue; i++ {
 		workerCache[i-1] = FibRecursive(i, memoCache)
 	}
-	result := workerCache[maxValue-1]
-	return result
+	result = workerCache[maxValue-1]
+	return
 }
